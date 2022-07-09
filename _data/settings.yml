@@ -16,7 +16,7 @@ menu:
 
 # Available social icons are powered by Font Awesome, so you can use any icon that they offer
 social:
-- {icon: 'linkedin-in', link:    'https://www.linkedin.com/in/ammar--alam/'}
+- {icon: 'linkedin', link:    'https://www.linkedin.com/in/ammar--alam/'}
 - {icon: 'instagram', link:  'https://instagram.com/ammar.alam'}
 - {icon: 'envelope', link:   'mailto:ammar4545@gmail.com'}
 # - {icon: 'rss-square', link: 'rss-feed.xml'}
