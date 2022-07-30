@@ -29,11 +29,16 @@
   float: left;
 }
 .menu-list {
+  padding-right: 30px;
   line-height: $header-thickness;
   float: right;
 }
 .menu-link {
-  padding: 5px 30px;
+  padding: 5px 25px;
+}
+.icon-link {
+  float: right;
+  padding: 5px 5px;
 }
 
 /*
