@@ -8,7 +8,7 @@ google-ID: ''
 
 menu:
 - {name: 'Technology',  url: 'technology'}
-- {name: 'Photograhpy', url: 'photo'}
+- {name: 'Photography', url: 'photo'}
 - {name: 'Books',       url: 'books'}
 - {name: 'Life',        url: 'life'}
 - {name: 'About',       url: 'about'}
