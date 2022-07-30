@@ -18,7 +18,8 @@ social:
 - {icon: 'linkedin', link:    'https://www.linkedin.com/in/ammar--alam/'}
 - {icon: 'instagram', link:  'https://instagram.com/ammar.alam'}
 - {icon: 'envelope', link:   'mailto:ammar4545@gmail.com'}
-- {icon: 'envelope', link:   'https://www.goodreads.com/user/show/19047614-ammar-alam'}
+- {icon: 'book', link:   'https://www.goodreads.com/user/show/19047614-ammar-alam'}
+- {icon: 'camera', link:   'flicker'}
 # - {icon: 'rss-square', link: 'rss-feed.xml'}
 
 # Customize site text
