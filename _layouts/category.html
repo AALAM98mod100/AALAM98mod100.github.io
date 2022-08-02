@@ -3,7 +3,9 @@ layout: default
 ---
 
 {% for post in site.posts %}
-  {% if post.categories contains page.category %}
-    {% include featured-post.html %}
+  {% if post.private !=true %}
+    {% if post.categories contains page.category %}
+      {% include featured-post.html %}
+    {% endif %}
   {% endif %}
 {% endfor %}
