@@ -4,7 +4,9 @@ title: Home
 ---
 
 {% for post in paginator.posts %}
-  {% include featured-post.html %}
+  {% if page.private == false %}
+      {% include featured-post.html %}
+  {% endif %}
 {% endfor %}
 
 <!-- Pagination links -->
