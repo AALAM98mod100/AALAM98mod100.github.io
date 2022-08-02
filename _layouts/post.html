@@ -16,7 +16,8 @@ layout: default
   {% endif %}
   <article>
     {% if page.private == true}
-      The post is private
+      <h2>Sorry!</h2>
+      <p>This post is private. You can ask the owner to have a read.</p>
     {% else %}
       {{ content }}
     {% endif %}
