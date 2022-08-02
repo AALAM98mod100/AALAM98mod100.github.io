@@ -15,7 +15,11 @@ layout: default
     </div>
   {% endif %}
   <article>
-    {{ content }}
+    {% if post.private == true}
+      The post is private
+    {% else %}
+      {{ content }}
+    {% endif %}
   </article>
   {% if site.hide_post_share != true %}
     {% include post-share.html %}
