@@ -7,7 +7,7 @@ tags: [diary,nala]
 private: true
 ---
 
-Nala died today. She was around 12 weeks onld. I found her on the steps the masjid in AKBARPURA. Before I found her actually, I had a kind of vision that I didn't tell anyone about.
+Nala died today. She was around 12 weeks old. I found her on the steps of the masjid in AKBARPURA. Before I found her actually, I had a kind of vision that I didn't tell anyone about.
 
 While praying in my courtyard (Isha I think) I thought I heard a meow. I imagined a grey kitten come from the shadowed alleyway of our house entrance. This was the gate that opened towards the masjid. I just really vividly imagined a kitten. In those times, Saman had asked for a pet cat (only) to be refused by mom and dad. I knew they cannot (would not) refuse a rescue so I yearned for that (circumstance) instead.
 
@@ -31,4 +31,4 @@ I will miss you Nala. You pure, cute, beautiful creature that brought such joy i
 
 From Him we came and to Him we shall return.
 
-In the meantime I'll try my best to be kind to all that dwells on this earth/
+In the meantime I'll try my best to be kind to all that dwells on this earth.
