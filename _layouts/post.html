@@ -15,12 +15,7 @@ layout: default
     </div>
   {% endif %}
   <article>
-    {% if page.private == true}
-      <h2>Sorry!</h2>
-      <p>This post is private. You can ask the owner to have a read.</p>
-    {% else %}
-      {{ content }}
-    {% endif %}
+    {{ content }}
   </article>
   {% if site.hide_post_share != true %}
     {% include post-share.html %}
