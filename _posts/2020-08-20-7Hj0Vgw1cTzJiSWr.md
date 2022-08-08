@@ -4,6 +4,7 @@ title: "7Hj0Vgw1cTzJiSWr"
 author: "Ammar Alam"
 categories: life
 tags: [diary,nala]
+private: true
 ---
 
 Nala died today. She was around 12 weeks onld. I found her on the steps the masjid in AKBARPURA. Before I found her actually, I had a kind of vision that I didn't tell anyone about.
