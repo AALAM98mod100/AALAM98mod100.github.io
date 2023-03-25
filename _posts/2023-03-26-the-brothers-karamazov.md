@@ -1,23 +1,15 @@
 ---
 layout: post
-title: "On religion, harems, and Alamut"
+title: "More than just The Brothers Karamazov"
 author: "Ammar Alam"
 categories: books
-tags: [book, review,thoughts, bartol, alamut]
-image: alamut.jpeg
+tags: [book, review, dostoevsky, karamazov]
+image: karamazov.jpeg
+private: false
 ---
+Every once in a while, we come across a piece of art that is cherished as if it were our own creation. But it is not. I have felt this way only a very few times in my life, but I can confidently project these feelings onto Dostoevsky's The Brothers Karamazov. Over the course of six months i.e. the latter part of 2022, I came to understand and love each of the characters as they were fleshed out beautifully in the novel. Every person's aspirations, thoughts, deeds, and ultimately actions were inseperable from their individual and connected psychologies and there's no better feeling that to realize these faces were all carved by just one person, Fyodor Dostoevsky.
 
-I have been a long time fan of the Assassins Creed franchise. Amid the thrill of ultimate-action and grandiose adventures, the games touch upon important inflection points in global history. And you get to meet a few celebrities too. From Socrates to Julius Casear, and all the way to Leonardo Da Vinci; each character is flavored with sprinkles of conspiracy-magic and intrigue. Ubisoft found an enchanting formula, particularly for history buffs like myself. 
-
-What excited me the most, however, was the reality behind the mythology, and as I sought to get deeper and deeper into the actual history of the assassins, I found myself looking up to Alamut. A notorious, yet legendary, fortress perched atop a mountain, surrounded by nothing but air. For legend has it the fortress was built by one of the kings of Daylam who saw an eagle atop an impenetrable mountain. One does not need to have read Sun Tzu to realize the importance of building a stronghold in such a place where only the eagles nest. But build the king did, a most magnificent structure with equal parts solidity and comfort. The fortress was built to withstand not only the ruthless weather systems of the Alborz mountains, but the harsh realities of human conflict. Yet it famously housed exquisite gardens and libraries for the nourishment of the soul. Now on to the book.
-
-Alamut is a remarkable novel by the Slovenian author Vladimir Bartol. Even moreso than the name, the cover art of the specific edition I happened to be reading looked [fantastic](https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1320545895l/1664129.jpg). Structured upon its namesake in fortresses, the text is as brutal as it gets when dealing with matters of politics, kings, and relgious strife. On the other hand, it has a transformative power in expository chapters diving into the author's mind. It exposes the reader to a litany of religious beliefs and ideologies in Islam. Bartol's knowledge and insight feels unending at times.
-
-One of the stronger suits of Bartol's magnum opus is the rich colorization of 11/12<sup>th</sup> century Persia. Vivid descriptions transport the reader into oh-not-so-much simpler times. When messages travelled as fast as pigeons could carry them, and horses needed to be changed at caravanserais along the way. The visually rich setting is brought to life by famous historical characters from the past, most notably our anti-hero in the form of Hassan ibn Sabbah, a Nizari Ismaili _dai_ who led the Ismailis into political power and roleplay. And then of course is the Seljuk wazir (vizier) Nizam ul Mulk who's vengeful actions drive the story forward and leads ibn Sabbah into engaging his followers into a cult-like trance, into the _fedayeen_. To complete the trio, comes along a charismatic poet, Omar Khayyam. While the strife between Hassan and Nizam ul Mulk is political, Omar Khayyam serves as the wall where ideas are bounced and engaging conversation is served to the reader.
-
-It needs to be mentioned here that Alamut is a work of _fiction_. It does not claim to fill the gaps in your history knowledge. It is loosely based on real events and that is all there is to it. Bartol also makes use of historical "facts" that have been [debunked](https://youtu.be/OUVY3CFQAGY?t=758). Nevertheless, the story takes place at an interesting crossroad worth exploring further.
-
-It is no suprise considering the fact that this very book inspired the franchise I speak of. Just like in the case of Assassins Creed, the layering of myth upon historical legends make up a very good recipe that can be enjoyed by those looking for a stories within histories as well as those who love the stories and others who love history. Alamut comes as a highly recommended read for fans of historical fiction who love the greater emphasis on history.
+There's perhaps little I can say right now on the book except to give a hearty recommendation to read it. Bear in mind, its a big book, literally and figuratively speaking. Time and mental resources are guzzled quickly during the process and often times I found myself reading barely two or three pages before closing the novel and just taking in the ideas presented over a span of a couple lines. Yes, it is _that_ book. For now, I will let the Goodreads review do the talking while I think about presenting all I wanted to say about this book, in better detail.
 
 ---
 #### Goodreads Review
@@ -25,6 +17,13 @@ It is no suprise considering the fact that this very book inspired the franchise
   ⭐ ⭐ ⭐ ⭐ ⭐
 </div>
 
->This is a page turner, a must-read novel with some deep-rooted ideas scratching away at the religious garb. Bartol's expansive gamut paints a rich tapestry of the religious and political idiosyncrasies of the Islamic branches. Will write a detailed review but too tired at this hour. Tldr: Read it if you are remotely interested in Middle-Eastern history. 
+>It surprises me how quickly can a man's head be filled with a story that absolutely moves him. And one would expect such an event to occur perhaps once or twice throughout the course of any well-written book. But what if each character you meet in a book seems to have such a story? At that point you realise that it's not people but the author of these deeply fleshed out characters that is to blame. I do not say the characters are uninteresting. On the contrary, we have a case of selection bias/chosen-one scenario over here. Normal, routine lives are barely given a mention in this story. But, it is within these same lives we find our stories.
+>
+>There's no high stakes political drama nor is there a cataclysmic event to engage the reader. It's just sinply beautiful exposition after exposition from Dostoevsky's colorful pantheon of ordinary humans. Humans that say what they think, but do not think what they say. Humans that are at the whim of their psychologies out for the others to understand and perhaps even exploit. There's a hidden psychologist in each of us and The Brothers Karamazov demarcates between those that are subtle in their art and those who have a more mercurial approach to thinking around others.
+>
+>As a computer programmer, there's often a soft limit on how much can one nest information. But with Dostoevsky, there seems to be none. It is a marvelous piece to work getting sucked in to stories within stories within stories. And then to see the detail at work further on within the book is pure awesomeness.
+>
+>This is a book I can wholeheartedly recommend to any reader of engaging fiction. There's much storytelling to be experienced here and the layer of psych 101 is just the cherry on top. This book may help you to think better, to feel better, and above all, to experience life better.
 
-_June 2022_
+_March 2023_
+
