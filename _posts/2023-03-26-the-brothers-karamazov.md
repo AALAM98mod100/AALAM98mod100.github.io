@@ -5,6 +5,7 @@ author: "Ammar Alam"
 categories: books
 tags: [book, review,thoughts, dostoevsky, karamazov]
 image: karamazov.jpeg
+private: false
 ---
 Every once in a while, we come across a piece of art that is cherished as if it were our own creation. But it is not. I have felt this way only a very few times in my life, but I can confidently project these feelings onto Dostoevsky's The Brothers Karamazov. Over the course of six months i.e. the latter part of 2022, I came to understand and love each of the characters as they were fleshed out beautifully in the novel. Every person's aspirations, thoughts, deeds, and ultimately actions were inseperable from their individual and connected psychologies and there's no better feeling that to realize these faces were all carved by just one person, Fyodor Dostoevsky.
 

@@ -5,6 +5,7 @@ author: "Ammar Alam"
 categories: life
 tags: [song]
 private: false
+image: shini-bahar.png
 ---
 
 Oh my heart, how can one say that the spring has come
