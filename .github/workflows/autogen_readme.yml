@@ -5,6 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
     - uses: actions/checkout@v4
+    - name: Set execute permission for autogen_readme.sh
+      run: chmod +x autogen_readme.sh
+    - name: Run autogen_readme.sh
     - run: ./autogen_readme.sh
   commit-changes:
     runs-on: ubuntu-latest
