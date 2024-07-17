@@ -2,7 +2,7 @@
 layout: post
 title: "A deep dive into recovering the camera response function using Paul Debevec's method"
 author: "Ammar Alam"
-categories: books
+categories: tech
 tags: [article, computational-photography, software, hdr, hdri, crf, multi-part, series]
 image: crf.png
 private: true
