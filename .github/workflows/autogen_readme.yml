@@ -10,7 +10,7 @@ jobs:
     - name: Run autogen_readme.sh
       run: ./autogen_readme.sh
     - name: Upload README.md as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: README.md
         path: README.md
@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Download README.md artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: README.md
         path: .
