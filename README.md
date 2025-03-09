@@ -1,12 +1,224 @@
-| Date | Title | Tags | Private |
-|------|-------|------|---------|
- | October 12, 2023 | A deep dive into recovering the camera response function using Paul Debevec's method | [article, computational-photography, software, hdr, hdri, crf, multi-part, series] | true |
- | March 26, 2023 | More than just The Brothers Karamazov | [book, review, dostoevsky, karamazov] | false |
- | September 05, 2022 | Shini Bahar | [song] | false |
- | August 29, 2022 | R762vc5i2Rreae4Q | [] | true |
- | August 09, 2022 | The role of Vision on my life | [life, vision] | true |
- | August 01, 2022 | On religion, harems, and Alamut | [book, review,thoughts, bartol, alamut] | False |
- | August 20, 2020 | 7Hj0Vgw1cTzJiSWr | [diary,nala] | true |
- | August 16, 2020 | H7hysDoEaQ3Up76R | [diary,barki] | true |
- | September 26, 2016 | Exams should not be timed | [thoughts, education] | false |
- | April 04, 2016 | About the Author | [sample] | true |
+# Ammar Alam's Personal Website
+
+This is the source code for my personal website, built with Astro. The site is deployed at [www.ammaralam.me](https://www.ammaralam.me).
+
+## 🚀 Project Structure
+
+The site is built as a personal blog with a clean, modular structure:
+
+```text
+src/
+├── assets/         # Static assets like images and SVGs
+├── components/     # Reusable UI components
+│   └── PostList.astro   # Displays a list of blog posts
+├── layouts/        # Page layout templates
+│   ├── Layout.astro          # Base HTML structure
+│   ├── BaseLayout.astro      # Layout with navigation and footer
+│   ├── MarkdownPostLayout.astro # Adapter for markdown frontmatter
+│   └── BlogPost.astro        # Layout specifically for blog posts
+├── pages/          # All pages and blog posts (routes)
+│   ├── index.astro      # Homepage
+│   ├── 404.astro        # 404 error page
+│   ├── books/           # Category folder for books posts
+│   ├── technology/      # Category folder for technology posts
+│   ├── life/            # Category folder for life posts
+│   └── photography/     # Category folder for photography posts
+└── utils/          # Utility functions
+    ├── date.ts          # Date formatting utilities
+    └── posts.ts         # Post filtering, sorting, and type definitions
+```
+
+## 🏗️ How Components Work Together
+
+### Layout Hierarchy
+
+- `Layout.astro`: The root layout with HTML structure, head, metadata
+- `BaseLayout.astro`: Extends Layout and adds navigation and footer
+- `MarkdownPostLayout.astro`: Adapter that processes markdown frontmatter
+- `BlogPost.astro`: Extends BaseLayout and adds specific blog post formatting
+
+### Page Structure
+
+- Each page imports `BaseLayout` to maintain consistent navigation/footer
+- Blog posts use the `MarkdownPostLayout` which feeds data to `BlogPost` layout
+
+### Component Flow
+
+```
+Layout.astro (Basic HTML) 
+  ↳ BaseLayout.astro (Adds Navigation and Footer)
+      ↳ Regular Pages (index.astro, about.astro, etc.)
+      ↳ BlogPost.astro (For individual posts)
+            ⬑ MarkdownPostLayout.astro (Processes frontmatter)
+                ⬑ Markdown Blog Posts (.md files)
+```
+
+## 📝 Blog Post Handling
+
+### Post Organization
+
+- All posts are stored in a central `src/pages/posts/` directory
+- Posts are organized by categories specified in their frontmatter
+- A post can belong to multiple categories
+- Categories are defined as TypeScript enums to prevent errors
+
+### Post Processing
+
+- `Astro.glob()` fetches posts from the central posts directory
+- `filterPublicPosts()` removes private posts
+- `filterPostsByCategory()` filters posts by their categories
+- `sortPostsByDate()` sorts posts by publication date
+
+### Post Display
+
+- `PostList.astro` component renders posts consistently across the site
+- Handles empty states with custom messages
+- Supports displaying multiple categories per post
+- Dates are formatted using centralized date utilities in `src/utils/date.ts`
+
+## 🆕 How to Add New Content
+
+### Adding a New Blog Post
+
+1. Create a new `.md` file in the central posts directory:
+   ```
+   src/pages/posts/new-post.md
+   ```
+
+2. Add the required frontmatter with one or more categories:
+   ```md
+   ---
+   layout: ../../layouts/MarkdownPostLayout.astro
+   title: "My New Post"
+   description: "Description of the post"
+   pubDate: 2023-12-15
+   categories: ["books", "technology"]  # Single category as string or array of categories
+   image: "/assets/img/my-post-image.jpg"   # Optional
+   private: false                           # Optional
+   ---
+
+   Your blog post content here in Markdown...
+   ```
+
+3. The post will automatically appear in:
+   - Each specified category page (books and technology in this example)
+   - The homepage recent posts (if it's one of the most recent)
+
+### Important Date Formatting
+
+When adding posts, use the following format for dates in frontmatter:
+- Use the YYYY-MM-DD format for `pubDate` (e.g., `2023-12-25`)
+- This format ensures proper sorting and display of dates across the site
+- All date formatting is handled by centralized utilities in `src/utils/date.ts`
+
+### Adding a New Page
+
+1. Create a new `.astro` file in the pages directory:
+   ```
+   src/pages/newpage.astro
+   ```
+
+2. Use the BaseLayout:
+   ```astro
+   ---
+   import BaseLayout from '../layouts/BaseLayout.astro';
+   ---
+
+   <BaseLayout title="My New Page">
+     <div class="page-content">
+       <h1>My New Page</h1>
+       <p>Content here...</p>
+     </div>
+   </BaseLayout>
+
+   <style>
+     .page-content {
+       max-width: 800px;
+       margin: 0 auto;
+     }
+   </style>
+   ```
+
+### Adding a New Category
+
+1. Add the new category to the `Category` enum in `src/utils/posts.ts`
+2. Create a new category page in `src/pages/newcategory/index.astro`
+3. Update the Navigation component to include the new category
+
+## 🔒 Private Posts Feature
+
+Posts can be marked as private with `private: true` in the frontmatter. Private posts:
+
+1. Won't appear in any listings or on the homepage
+2. Are still accessible by direct URL
+3. Display a warning banner if accessed directly
+
+This allows you to work on draft posts while keeping them hidden from the main site.
+
+## 🎨 CSS and Styling
+
+1. **Component-Scoped Styles**:
+   - Each Astro component has its own `<style>` section
+   - These styles are automatically scoped to that component only
+   - Common styles are extracted to shared components
+
+2. **Global Styles**:
+   - Base styles are in `Layout.astro`
+   - You can add more global styles in the Layout component
+
+3. **Responsive Design**:
+   - Media queries are used for responsive layouts
+   - The site is mobile-friendly with adaptations for small screens
+
+## ⚙️ Configuration Options
+
+1. **Site Settings**:
+   - Site URL and other settings are in `astro.config.mjs`
+   - Metadata like title is in `Layout.astro`
+
+2. **Post Renderers**:
+   - Markdown rendering settings are handled by Astro automatically
+   - You can customize markdown rendering by integrating plugins in astro.config.mjs
+
+## 🔄 Making Future Changes
+
+### To Modify the Design
+
+1. Update component styles in their respective `.astro` files
+2. For site-wide changes, modify `Layout.astro` or `BaseLayout.astro`
+3. For blog post appearance, modify `BlogPost.astro` or `PostList.astro`
+
+### To Add Features
+
+1. **New Components**: Add them to the `components` directory
+2. **Utilities**: Add them to the `utils` directory
+3. **Layout Changes**: Modify the appropriate layout file
+
+### To Extend Post Functionality
+
+1. Update the `Frontmatter` interface in `src/utils/posts.ts`
+2. Modify `PostList.astro` to display new frontmatter fields
+3. Update `BlogPost.astro` for individual post display changes
+
+### To Add a New Category
+
+1. Add the new category to the `Category` enum in `src/utils/posts.ts`
+2. Create a new category page in `src/pages/newcategory/index.astro`
+3. Update the Navigation component to include the new category
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

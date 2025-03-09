@@ -1,0 +1,15 @@
+---
+import BlogPost from './BlogPost.astro';
+const { frontmatter } = Astro.props;
+---
+
+<BlogPost
+  title={frontmatter.title}
+  description={frontmatter.description}
+  pubDate={frontmatter.pubDate}
+  updatedDate={frontmatter.updatedDate}
+  categories={frontmatter.categories}
+  private={frontmatter.private}
+>
+  <slot />
+</BlogPost> 

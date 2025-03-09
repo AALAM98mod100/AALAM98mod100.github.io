@@ -1,11 +1,10 @@
 ---
-layout: post
+layout: ../../layouts/MarkdownPostLayout.astro
 title: "Shini Bahar"
-author: "Ammar Alam"
-categories: life
-tags: [song]
-private: false
-image: shini-bahar.png
+description: "Reflections on a beautiful song"
+pubDate: 2022-09-05
+categories: ["life"]
+image: "/assets/img/shini-bahar.png"
 ---
 
 Oh my heart, how can one say that the spring has come

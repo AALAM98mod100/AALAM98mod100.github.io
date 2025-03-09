@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: ../../layouts/MarkdownPostLayout.astro
 title: "7Hj0Vgw1cTzJiSWr"
 author: "Ammar Alam"
-categories: life
+categories: ["life"]
 tags: [diary,nala]
 private: true
 ---
