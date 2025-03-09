@@ -1,0 +1,58 @@
+---
+import type { MarkdownInstance } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import type { Frontmatter } from '../utils/posts';
+import { filterPublicPosts, sortPostsByDate } from '../utils/posts';
+
+// Get all posts from the central posts directory
+let allPosts: MarkdownInstance<Frontmatter>[] = [];
+try {
+	// We want to get all markdown files from the posts directory
+	const posts = await Astro.glob<Frontmatter>('./posts/*.md');
+	// Filter out private posts
+	allPosts = filterPublicPosts(posts);
+} catch (error) {
+	console.log("Error loading posts:", error);
+}
+
+// Sort posts by date, most recent first
+const sortedPosts = sortPostsByDate(allPosts);
+
+// Get the 3 most recent posts
+const recentPosts = sortedPosts; //.slice(0, 3);
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<BaseLayout title="Home">
+	<div class="home-content">
+		<h1>Welcome to My Website</h1>
+		<p>This is the personal website of Ammar Alam. Feel free to explore my thoughts on books, technology, life, and photography.</p>
+		
+		<div class="featured-section">
+			<h2>Recent Posts</h2>
+			<PostList 
+				posts={recentPosts} 
+				emptyMessage="No posts available yet. Check back soon!" 
+			/>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.home-content {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	
+	h1 {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+	
+	.featured-section {
+		margin-top: 3rem;
+	}
+</style>

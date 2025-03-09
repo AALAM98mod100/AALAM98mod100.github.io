@@ -1,0 +1,73 @@
+---
+const navItems = [
+  { title: 'Home', path: '/' },
+  { title: 'About', path: '/about/' },
+  { title: 'Books', path: '/books/' },
+  { title: 'Technology', path: '/technology/' },
+  { title: 'Life', path: '/life/' },
+  { title: 'Photography', path: '/photography/' },
+];
+---
+
+<nav>
+  <div class="site-title">
+    <a href="/">Ammar Alam</a>
+  </div>
+  
+  <div class="nav-links">
+    {navItems.map(item => (
+      <a href={item.path} class={Astro.url.pathname === item.path ? 'active' : ''}>
+        {item.title}
+      </a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .site-title a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover, .nav-links a.active {
+    color: #000;
+  }
+  
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .site-title {
+      margin-bottom: 1rem;
+    }
+    
+    .nav-links {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style> 

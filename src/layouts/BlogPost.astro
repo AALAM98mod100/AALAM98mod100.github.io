@@ -1,0 +1,190 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CategoryType } from '../utils/posts';
+import { formatDate, parseDate } from '../utils/date';
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate: Date | string;
+  updatedDate?: Date | string;
+  categories: CategoryType[] | CategoryType;
+  private?: boolean;
+}
+
+const { 
+  title, 
+  description, 
+  pubDate: pubDateRaw, 
+  updatedDate: updatedDateRaw, 
+  categories, 
+  private: isPrivate 
+} = Astro.props;
+
+// Debug the raw date
+// console.log('BlogPost Props:', {
+//   pubDateRaw,
+//   type: typeof pubDateRaw,
+//   categories,
+//   title
+// });
+
+// Format dates using the shared utility function
+const formattedPubDate = formatDate(pubDateRaw);
+const formattedUpdatedDate = updatedDateRaw ? formatDate(updatedDateRaw) : undefined;
+
+// Create ISO string for datetime attribute
+function getISOString(dateInput: string | Date): string {
+  if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateInput)) {
+    return `${dateInput}T12:00:00Z`;
+  }
+  
+  try {
+    if (dateInput instanceof Date) {
+      return dateInput.toISOString();
+    }
+    return new Date(dateInput).toISOString();
+  } catch (e) {
+    console.error('Error creating ISO string:', e);
+    return new Date().toISOString();
+  }
+}
+
+const pubDateISO = getISOString(pubDateRaw);
+const updatedDateISO = updatedDateRaw ? getISOString(updatedDateRaw) : undefined;
+
+// Process categories
+const categoryArray = Array.isArray(categories) ? categories : [categories];
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="blog-post">
+    {isPrivate && (
+      <div class="private-notice">
+        <p>⚠️ This is a private post and is not visible to the public.</p>
+      </div>
+    )}
+    <div class="post-header">
+      <h1>{title}</h1>
+      <div class="post-meta">
+        <time datetime={pubDateISO}>{formattedPubDate}</time>
+        {updatedDateRaw && updatedDateISO && (
+          <div class="updated-date">
+            Updated: <time datetime={updatedDateISO}>{formattedUpdatedDate}</time>
+          </div>
+        )}
+        <div class="categories">
+          {categoryArray.map(category => (
+            <a href={`/${category}/`} class="category-tag">{category}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+    
+    <div class="post-content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .post-header {
+    margin-bottom: 2rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .post-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .updated-date {
+    margin-top: 0.5rem;
+  }
+  
+  .categories {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  
+  .category-tag {
+    text-transform: capitalize;
+    color: #0077cc;
+    background-color: rgba(0, 119, 204, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .category-tag:hover {
+    background-color: rgba(0, 119, 204, 0.2);
+  }
+  
+  .post-content {
+    line-height: 2.0;
+  }
+  
+  .private-notice {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0.25rem;
+    border-left: 4px solid #ffeeba;
+  }
+  
+  .post-content :global(h2) {
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+  }
+  
+  .post-content :global(h3) {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem;
+  }
+  
+  .post-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+  
+  .post-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+  }
+  
+  .post-content :global(blockquote) {
+    border-left: 4px solid #ddd;
+    padding-left: 1rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+  }
+  
+  .post-content :global(pre) {
+    background-color: #f6f8fa;
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  
+  .post-content :global(code) {
+    background-color: #f6f8fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+</style> 
