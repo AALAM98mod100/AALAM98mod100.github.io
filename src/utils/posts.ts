@@ -1,4 +1,5 @@
 import type { MarkdownInstance } from 'astro';
+import { parseDate } from './date';
 
 /**
  * Enum of valid post categories
@@ -38,13 +39,16 @@ export function filterPublicPosts<T extends { frontmatter: { private?: boolean }
 
 /**
  * Sorts posts by date, most recent first
+ * Uses the centralized date parsing utility for consistent handling
  */
 export function sortPostsByDate<T extends { frontmatter: { pubDate: string | Date } }>(
   posts: T[]
 ): T[] {
-  return [...posts].sort(
-    (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
-  );
+  return [...posts].sort((a, b) => {
+    const dateA = parseDate(a.frontmatter.pubDate) || new Date(0);
+    const dateB = parseDate(b.frontmatter.pubDate) || new Date(0);
+    return dateB.getTime() - dateA.getTime();
+  });
 }
 
 /**
