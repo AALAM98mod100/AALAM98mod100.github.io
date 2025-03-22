@@ -1,0 +1,73 @@
+---
+// This is a completely separate layout for the photography section
+// with a different visual identity
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Photography", 
+  description = "Photography portfolio showcasing landscapes and urban scenes" 
+} = Astro.props;
+
+// Import photo-specific styles
+import '../styles/photography.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/ico" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `${title} | Ammar Alam` : 'Photography | Ammar Alam'}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Import fonts (using a system font stack for now, but you can add custom fonts) -->
+    <style>
+      /* This is a minimal reset/base for the photography section */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        color: #333;
+        background-color: #fff;
+        line-height: 1.6;
+      }
+      
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Minimal header with a link back to the main site -->
+    <header class="photography-header">
+      <div class="header-content">
+        <a href="/" class="home-link">← Back to Main Site</a>
+        <a href="/photography" class="logo">Ammar Alam Photography</a>
+        <div class="nav-links">
+          <a href="/photography/collections" class={Astro.url.pathname.includes('/collections') ? 'active' : ''}>Collections</a>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Main content area -->
+    <main class="photography-main">
+      <slot />
+    </main>
+    
+    <!-- Minimal footer -->
+    <footer class="photography-footer">
+      <div class="footer-content">
+        <p>&copy; {new Date().getFullYear()} Ammar Alam. All rights reserved.</p>
+      </div>
+    </footer>
+    
+    <!-- Photography-specific scripts -->
+    <script is:inline src="/scripts/gallery.js"></script>
+  </body>
+</html> 
