@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import PhotographyLayout from '../../../layouts/PhotographyLayout.astro';
+import { photoGalleries } from '../../../data/photos.js';
+import { getImageLoadingStrategy } from '../../../utils/photoUtils.js';
+
+export async function getStaticPaths() {
+  return photoGalleries.map(gallery => ({
+    params: { galleryId: gallery.id },
+    props: { gallery },
+  }));
+}
+
+const { galleryId } = Astro.params;
+const { gallery } = Astro.props;
+
+// Get title from the specific gallery for SEO purposes
+const pageTitle = `${gallery.title} | Photography Collections`;
+---
+
+<PhotographyLayout title={pageTitle}>
+  <div class="gallery-view">
+    <a href="/photography/collections" class="back-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+      </svg>
+      Back to collections
+    </a>
+    
+    <div class="gallery-header">
+      <h2>{gallery.title}</h2>
+      <p class="gallery-description">{gallery.description}</p>
+    </div>
+    
+    <div class="masonry-grid">
+      {gallery.photos.map((photo, index) => (
+        <div class="masonry-item">
+          <Image 
+            src={photo.src} 
+            width={800}
+            height={800}
+            alt={photo.alt} 
+            loading={getImageLoadingStrategy(index, 'gallery')}
+          />
+          {photo.caption && <div class="caption">{photo.caption}</div>}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Lightbox for image viewing */}
+  <div class="lightbox">
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-image" />
+      <div class="lightbox-caption"></div>
+    </div>
+    <button class="lightbox-close">&times;</button>
+    <div class="lightbox-nav">
+      <button class="lightbox-prev">&#10094;</button>
+      <button class="lightbox-next">&#10095;</button>
+    </div>
+  </div>
+</PhotographyLayout>
+
+<style>
+  /* Masonry Grid Layout */
+  .masonry-grid {
+    column-count: 3;
+    column-gap: 1.5rem;
+    margin: 3rem 0;
+  }
+  
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #f0f0f0;
+  }
+  
+  .masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.8s ease;
+  }
+  
+  .masonry-item:hover img {
+    transform: scale(1.05);
+  }
+  
+  .masonry-item .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    color: white;
+    padding: 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    opacity: 0;
+  }
+  
+  .masonry-item:hover .caption {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .masonry-grid {
+      column-count: 2;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .masonry-grid {
+      column-count: 1;
+    }
+  }
+</style> 

@@ -1,0 +1,96 @@
+---
+// Props interface for the PhotoGallery component
+import { Image } from 'astro:assets';
+
+interface Props {
+  galleries: {
+    id: string;
+    title: string;
+    description: string;
+    coverImage: string;
+    photos: {
+      src: string;
+      alt: string;
+      caption?: string;
+    }[];
+  }[];
+  galleryId?: string; // Optional: If provided, shows a specific gallery
+  showCollections?: boolean; // Whether to show collections grid (default: true)
+}
+
+const { galleries, galleryId, showCollections = true } = Astro.props;
+
+// If galleryId is provided, get the specific gallery
+const activeGallery = galleryId 
+  ? galleries.find(gallery => gallery.id === galleryId) 
+  : null;
+---
+
+{/* Display gallery collections if showCollections is true and no specific gallery is selected */}
+{showCollections && !activeGallery && (
+  <div class="collections-grid">
+    {galleries.map(gallery => (
+      <a href={`/photography/${gallery.id}`} class="collection-link">
+        <div class="collection-card">
+          <div class="collection-image">
+            <Image 
+              src={gallery.coverImage} 
+              width={800} 
+              height={600} 
+              alt={`${gallery.title} collection`} 
+            />
+          </div>
+          <div class="collection-details">
+            <h3>{gallery.title}</h3>
+            <p>{gallery.description}</p>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+)}
+
+{/* Display specific gallery if galleryId is provided */}
+{activeGallery && (
+  <div class="gallery-view">
+    <a href="/photography" class="back-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+      </svg>
+      Back to collections
+    </a>
+    
+    <div class="gallery-header">
+      <h2>{activeGallery.title}</h2>
+      <p class="gallery-description">{activeGallery.description}</p>
+    </div>
+    
+    <div class="gallery-grid">
+      {activeGallery.photos.map((photo, index) => (
+        <div class="gallery-item">
+          <Image 
+            src={photo.src} 
+            width={800} 
+            height={800} 
+            alt={photo.alt} 
+            loading="lazy" 
+          />
+          {photo.caption && <div class="caption">{photo.caption}</div>}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{/* Lightbox for image viewing */}
+<div class="lightbox">
+  <div class="lightbox-content">
+    <img src="" alt="" class="lightbox-image" />
+    <div class="lightbox-caption"></div>
+  </div>
+  <button class="lightbox-close">&times;</button>
+  <div class="lightbox-nav">
+    <button class="lightbox-prev">&#10094;</button>
+    <button class="lightbox-next">&#10095;</button>
+  </div>
+</div> 
