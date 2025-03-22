@@ -1,0 +1,72 @@
+/* Main Layout Components */
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--background-color);
+  box-shadow: var(--shadow);
+}
+  
+.site-title a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+  
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+  
+.nav-links a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+  
+.nav-links a:hover, .nav-links a.active {
+  color: var(--primary-color);
+}
+
+/* Main Content Area */
+main {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: calc(100vh - 200px);
+}
+
+/* Page Content */
+.page-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--light-background);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    padding: 1rem;
+  }
+    
+  .site-title {
+    margin-bottom: 1rem;
+  }
+    
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+  }
+} 

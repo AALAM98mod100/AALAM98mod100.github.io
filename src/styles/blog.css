@@ -1,0 +1,149 @@
+/* Blog Post Styling */
+
+/* Blog Post Container */
+.blog-post {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Private Post Notice */
+.private-notice {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.25rem;
+  border-left: 4px solid #ffeeba;
+}
+
+/* Blog Post Header */
+.blog-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+.blog-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-meta {
+  display: flex;
+  gap: 1rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.blog-date {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.blog-date.updated {
+  margin-top: 0.5rem;
+}
+
+.blog-author {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.blog-categories {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Blog Content */
+.blog-content {
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.blog-content p {
+  margin-bottom: 1.5rem;
+}
+
+.blog-content h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.blog-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
+
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 2rem 0;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1rem;
+  margin-left: 0;
+  color: var(--secondary-color);
+  font-style: italic;
+}
+
+.blog-content pre {
+  background-color: var(--light-background);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.blog-content code {
+  background-color: var(--light-background);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.blog-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Post Navigation */
+.post-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.post-navigation a {
+  max-width: 45%;
+}
+
+.post-navigation .prev-post {
+  text-align: left;
+}
+
+.post-navigation .next-post {
+  text-align: right;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 2rem;
+  }
+  
+  .blog-content {
+    font-size: 1rem;
+  }
+} 

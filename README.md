@@ -23,6 +23,12 @@ src/
 │   ├── technology/      # Category folder for technology posts
 │   ├── life/            # Category folder for life posts
 │   └── photography/     # Category folder for photography posts
+├── styles/         # Centralized CSS styles
+│   ├── global.css       # Variables, reset, and common styles
+│   ├── layout.css       # Header, footer, and page layouts
+│   ├── components.css   # Component specific styles
+│   ├── blog.css         # Blog post styling
+│   └── index.js         # Central import file for all styles
 └── utils/          # Utility functions
     ├── date.ts          # Date formatting utilities
     └── posts.ts         # Post filtering, sorting, and type definitions
@@ -157,18 +163,40 @@ This allows you to work on draft posts while keeping them hidden from the main s
 
 ## 🎨 CSS and Styling
 
-1. **Component-Scoped Styles**:
-   - Each Astro component has its own `<style>` section
-   - These styles are automatically scoped to that component only
-   - Common styles are extracted to shared components
+The website uses a centralized CSS system to maintain consistency and reduce duplication:
 
-2. **Global Styles**:
-   - Base styles are in `Layout.astro`
-   - You can add more global styles in the Layout component
+1. **CSS Organization**:
+   - All styles are in the `src/styles/` directory
+   - Styles are organized into four main files:
+     - `global.css`: Variables, reset, typography, and utility classes
+     - `layout.css`: Header, footer, navigation, and page layouts
+     - `components.css`: Reusable component styles (cards, buttons, etc.)
+     - `blog.css`: Blog post specific styling
 
-3. **Responsive Design**:
-   - Media queries are used for responsive layouts
+2. **CSS Variables**:
+   - Global variables are defined in `global.css` for consistent theming
+   - Use these variables instead of hard-coded values when adding new styles
+   - Example variables: `--primary-color`, `--content-width`, `--shadow`
+
+3. **Style Import System**:
+   - All styles are centrally imported via `src/styles/index.js`
+   - This single file is imported in `Layout.astro`
+   - No need to import styles in individual components or pages
+
+4. **Adding New Styles**:
+   - Add page-specific styles to the appropriate CSS file
+   - Follow existing patterns and naming conventions
+   - Use CSS variables for consistency
+   - Avoid inline styles in components
+
+5. **Responsive Design**:
+   - Media queries are in each CSS file near the related components
    - The site is mobile-friendly with adaptations for small screens
+
+6. **Class Naming Conventions**:
+   - Component wrappers: `.component-name`
+   - Nested elements: `.component-name__element`
+   - Modifiers: `.component-name--variant`
 
 ## ⚙️ Configuration Options
 
@@ -184,21 +212,29 @@ This allows you to work on draft posts while keeping them hidden from the main s
 
 ### To Modify the Design
 
-1. Update component styles in their respective `.astro` files
-2. For site-wide changes, modify `Layout.astro` or `BaseLayout.astro`
-3. For blog post appearance, modify `BlogPost.astro` or `PostList.astro`
+1. Update styles in the appropriate CSS file in the `src/styles/` directory:
+   - Site-wide typography, colors, and utilities: `global.css`
+   - Layout elements like headers and footers: `layout.css`
+   - Reusable components like cards and buttons: `components.css`
+   - Blog post specific styling: `blog.css`
+
+2. Use CSS variables defined in `global.css` for consistency
+
+3. Avoid adding inline styles to components – put them in the appropriate CSS file instead
 
 ### To Add Features
 
 1. **New Components**: Add them to the `components` directory
-2. **Utilities**: Add them to the `utils` directory
-3. **Layout Changes**: Modify the appropriate layout file
+2. **Component Styles**: Add them to `components.css`
+3. **Utilities**: Add them to the `utils` directory
+4. **Layout Changes**: Modify the appropriate layout file
 
 ### To Extend Post Functionality
 
 1. Update the `Frontmatter` interface in `src/utils/posts.ts`
 2. Modify `PostList.astro` to display new frontmatter fields
 3. Update `BlogPost.astro` for individual post display changes
+4. Add any new blog-specific styles to `blog.css`
 
 ### To Add a New Category
 
