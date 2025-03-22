@@ -1,0 +1,26 @@
+---
+import PhotographyLayout from '../../layouts/PhotographyLayout.astro';
+import PhotoGallery from '../../components/PhotoGallery.astro';
+import { photoGalleries } from '../../data/photos.js';
+
+export async function getStaticPaths() {
+  return photoGalleries.map(gallery => ({
+    params: { galleryId: gallery.id },
+    props: { gallery },
+  }));
+}
+
+const { galleryId } = Astro.params;
+const { gallery } = Astro.props;
+
+// Get title from the specific gallery for SEO purposes
+const pageTitle = `${gallery.title} | Photography`;
+---
+
+<PhotographyLayout title={pageTitle}>
+  <PhotoGallery 
+    galleries={photoGalleries} 
+    galleryId={galleryId} 
+    showCollections={false} 
+  />
+</PhotographyLayout> 

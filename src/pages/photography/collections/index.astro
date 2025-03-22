@@ -1,0 +1,117 @@
+---
+import { Image } from 'astro:assets';
+import PhotographyLayout from '../../../layouts/PhotographyLayout.astro';
+import { photoGalleries } from '../../../data/photos.js';
+import { getImageLoadingStrategy } from '../../../utils/photoUtils.js';
+---
+
+<PhotographyLayout title="Photography Collections">
+  <div class="photography-title">
+    <h1>Collections</h1>
+    <p>Browse through my curated photography collections.</p>
+  </div>
+  
+  <div class="masonry-collections">
+    {photoGalleries.map((gallery, index) => (
+      <a href={`/photography/collections/${gallery.id}`} class="collection-link">
+        <div class="collection-card">
+          <div class="collection-image">
+            <Image 
+              src={gallery.coverImage} 
+              width={800}
+              height={600}
+              alt={`${gallery.title} collection`} 
+              loading={getImageLoadingStrategy(index, 'collections')}
+            />
+          </div>
+          <div class="collection-details">
+            <h3>{gallery.title}</h3>
+            <p>{gallery.description}</p>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</PhotographyLayout>
+
+<style>
+  /* Masonry Collections Layout */
+  .masonry-collections {
+    column-count: 2;
+    column-gap: 2rem;
+    margin: 4rem 0;
+  }
+  
+  .collection-link {
+    display: block;
+    margin-bottom: 2rem;
+    break-inside: avoid;
+  }
+  
+  .collection-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--photo-background);
+    transition: var(--photo-transition);
+  }
+  
+  .collection-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--photo-shadow);
+  }
+  
+  .collection-image {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  .collection-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 1s ease;
+  }
+  
+  .collection-card:hover .collection-image img {
+    transform: scale(1.05);
+  }
+  
+  .collection-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    color: white;
+    transition: var(--photo-transition);
+  }
+  
+  .collection-details h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+  }
+  
+  .collection-details p {
+    font-size: 1rem;
+    line-height: 1.5;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: var(--photo-transition);
+  }
+  
+  .collection-card:hover .collection-details p {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .masonry-collections {
+      column-count: 1;
+    }
+  }
+</style> 
