@@ -67,5 +67,5 @@ export function filterPostsByCategory<T extends { frontmatter: { categories: Cat
 }
 
 // Note: The loadPosts function is intentionally not implemented because
-// Astro.glob() needs to be called directly in the .astro file.
+// import.meta.glob() needs to be called directly in the .astro file.
 // It cannot be imported from a utility file. 

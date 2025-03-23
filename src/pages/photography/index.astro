@@ -9,7 +9,7 @@ import { filterPublicPosts, sortPostsByDate, filterPostsByCategory, Category } f
 let posts: MarkdownInstance<Frontmatter>[] = [];
 try {
   // Get all posts from the central posts directory
-  const allPosts = await Astro.glob<Frontmatter>('../posts/*.md');
+  const allPosts = Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>('../posts/*.md', { eager: true }));
   // Filter by category, filter private posts, and sort by date
   posts = sortPostsByDate(
     filterPostsByCategory(
