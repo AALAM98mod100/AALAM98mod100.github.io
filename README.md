@@ -70,7 +70,7 @@ Layout.astro (Basic HTML)
 
 ### Post Processing
 
-- `Astro.glob()` fetches posts from the central posts directory
+- `import.meta.glob()` fetches posts from the central posts directory
 - `filterPublicPosts()` removes private posts
 - `filterPostsByCategory()` filters posts by their categories
 - `sortPostsByDate()` sorts posts by publication date
