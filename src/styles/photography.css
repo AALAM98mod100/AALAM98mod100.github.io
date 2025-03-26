@@ -1,22 +1,97 @@
+/* Photography Header */
+/* *{
+  border: 1px solid red;
+} */
+nav {
+  width: 100%;    
+  position: sticky;
+  /* position: -webkit-sticky; */
+  top: 0;
+  z-index:1;
+  transition: top 0.8s;
+  -webkit-transition: top 0.8s;
+  -moz-transition: top 0.8s;
+  -o-transition: top 0.8s;
+}
+.linkbox{
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  padding: 3% 5% 0% 5%;
+  width: 100%;
+}
+.spacer {
+  display: block;
+  width: 100%;
+}
+.homeheader {
+  height: 100vh;
+  background-image: url('/images/akbarpura-leaf.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  align-content: center;
+  padding-top: 0px;
+  text-align: center;
+}
+.title {
+  padding-right: 7%;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  color: black;
+  font-weight: 400;
+  font-size: 0.8em;
+  letter-spacing: 0.2em;
+}
+a.active {
+  color: #00979E;
+}
+.h1container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.h1container h1 {
+  font-family: 'Cormorant Garamond', serif;
+  color: white;
+  font-weight: 300;
+  font-size: 7.5vw;
+  line-height: 2em;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  letter-spacing: 1vw;
+  /* border: 1px solid blue; */
+}
+.coversocial {
+  width:100%;
+  position: absolute;
+  bottom: 3%;
+}
 
-.photography-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-  }
-  
-  .header-left {
-    flex: 1;
-  }
-  
-  .header-center {
-    flex: 2;
-    text-align: center;
-  }
-  
-  .header-nav {
-    flex: 1;
-    text-align: right;
-  }
-  
+.coverinstagram {
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 0.5em;
+  letter-spacing: 0.2em;
+  color: whitesmoke;
+}
+
+.coverinstagram:hover {
+  color: #00979E
+} 
+
+.coverflickr {
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 0.5em;
+  letter-spacing: 0.2em;
+  color: whitesmoke;
+}
+
+.coverflickr:hover {
+  color: #00979E
+} 
