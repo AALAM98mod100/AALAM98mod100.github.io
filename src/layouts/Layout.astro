@@ -14,8 +14,15 @@ import '../styles/index.js';
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/ico" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- Enhanced Favicon Support -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		
 		<meta name="generator" content={Astro.generator} />
 		<title>{title ? `${title} | Ammar Alam` : 'Ammar Alam'}</title>
 		<meta name="description" content={description || "Ammar Alam's personal website"} />
