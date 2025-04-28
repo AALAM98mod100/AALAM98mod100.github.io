@@ -12,12 +12,13 @@ nav {
   -webkit-transition: top 0.8s;
   -moz-transition: top 0.8s;
   -o-transition: top 0.8s;
+  background-color: transparent;
 }
 .linkbox{
   display: flex;
   align-items: stretch;
   position: relative;
-  padding: 3% 5% 0% 5%;
+  padding: 2% 5% 0% 5%;
   width: 100%;
 }
 .spacer {
@@ -26,7 +27,9 @@ nav {
 }
 .homeheader {
   height: 100vh;
-  background-image: url('/images/akbarpura-leaf.jpg');
+  /* background-image: url('/images/akbarpura-leaf.jpg'); */
+  background-image: url('/images/light_beam.jpg');
+  /* background-image: url('/images/_DSF3075.jpg'); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -38,10 +41,13 @@ nav {
   padding-right: 7%;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
-  color: black;
+  color: rgb(255, 255, 255);
   font-weight: 400;
   font-size: 0.8em;
   letter-spacing: 0.2em;
+}
+.title:hover {
+  color: #00979E;
 }
 a.active {
   color: #00979E;
@@ -66,32 +72,49 @@ a.active {
 }
 .coversocial {
   width:100%;
+  font-size: 1.5vw;
   position: absolute;
   bottom: 3%;
 }
 
-.coverinstagram {
+.social-link {
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 0.5em;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   color: whitesmoke;
 }
 
-.coverinstagram:hover {
+.social-link:hover {
   color: #00979E
 } 
 
-.coverflickr {
-  text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 0.5em;
-  letter-spacing: 0.2em;
-  color: whitesmoke;
+.title_lines {
+  margin-top: 10%;
+  margin-bottom: 10%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  text-align: center;
 }
-
-.coverflickr:hover {
-  color: #00979E
-} 
+.title_lines h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4vw;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+.title_lines:before, .title_lines:after {
+  position: absolute;
+  top: 51%;
+  overflow: hidden;
+  width: 30%;
+  height: 1px;
+  content: '\a0';
+  background-color: #00979E;
+  margin-left: 20%;
+}
+.title_lines:before {
+  margin-left: -50%;
+  text-align: right;
+}
