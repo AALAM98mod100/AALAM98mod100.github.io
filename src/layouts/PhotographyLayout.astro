@@ -1,0 +1,39 @@
+---
+import Layout from "./Layout.astro";
+import MasonryLayout from "./MasonryLayout.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <header class="homeheader">
+    <nav id="navbar">
+      <div class="linkbox">
+      <a class="title" href="/" class="nav-button">Home</a>
+      <a class="title" href="/photography/projects" class="nav-button">Projects</a>
+      <div class="spacer"></div>
+      <a class="title" href="/photography/about" class="nav-button">About</a>
+      <a class="title" href="/photography/links" class="nav-button">Links</a>
+      </div>
+    </nav>
+  <div class="h1container">
+    <h1> Ammar Alam </h1>
+  </div>
+  <div class="coversocial">
+    <a target="_blank" class="social-link" href="https://www.instagram.com/ammar.alam/">INSTAGRAM</a>
+    <div class="spacer"></div>
+    <a target="_blank" class="social-link" href="https://www.flickr.com/photos/a-alam/">FLICKR</a>
+  </div>
+    <!-- <div class="spacer"></div> -->
+  </header>
+  <div class="title_lines"><h2>PORTFOLIO</h2></div>
+
+  <MasonryLayout project={null}/>
+    <slot />
+  </main>
+</Layout>

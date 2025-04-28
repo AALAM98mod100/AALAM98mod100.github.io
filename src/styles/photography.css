@@ -1,0 +1,120 @@
+/* Photography Header */
+/* *{
+  border: 1px solid red;
+} */
+nav {
+  width: 100%;    
+  position: sticky;
+  /* position: -webkit-sticky; */
+  top: 0;
+  z-index:1;
+  transition: top 0.8s;
+  -webkit-transition: top 0.8s;
+  -moz-transition: top 0.8s;
+  -o-transition: top 0.8s;
+  background-color: transparent;
+}
+.linkbox{
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  padding: 2% 5% 0% 5%;
+  width: 100%;
+}
+.spacer {
+  display: block;
+  width: 100%;
+}
+.homeheader {
+  height: 100vh;
+  /* background-image: url('/images/akbarpura-leaf.jpg'); */
+  background-image: url('/images/light_beam.jpg');
+  /* background-image: url('/images/_DSF3075.jpg'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  align-content: center;
+  padding-top: 0px;
+  text-align: center;
+}
+.title {
+  padding-right: 7%;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(255, 255, 255);
+  font-weight: 400;
+  font-size: 0.8em;
+  letter-spacing: 0.2em;
+}
+.title:hover {
+  color: #00979E;
+}
+a.active {
+  color: #00979E;
+}
+.h1container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.h1container h1 {
+  font-family: 'Cormorant Garamond', serif;
+  color: white;
+  font-weight: 300;
+  font-size: 7.5vw;
+  line-height: 2em;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  letter-spacing: 1vw;
+  /* border: 1px solid blue; */
+}
+.coversocial {
+  width:100%;
+  font-size: 1.5vw;
+  position: absolute;
+  bottom: 3%;
+}
+
+.social-link {
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 0.5em;
+  letter-spacing: 0.3em;
+  color: whitesmoke;
+}
+
+.social-link:hover {
+  color: #00979E
+} 
+
+.title_lines {
+  margin-top: 10%;
+  margin-bottom: 10%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  text-align: center;
+}
+.title_lines h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4vw;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+.title_lines:before, .title_lines:after {
+  position: absolute;
+  top: 51%;
+  overflow: hidden;
+  width: 30%;
+  height: 1px;
+  content: '\a0';
+  background-color: #00979E;
+  margin-left: 20%;
+}
+.title_lines:before {
+  margin-left: -50%;
+  text-align: right;
+}
