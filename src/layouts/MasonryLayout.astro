@@ -1,0 +1,86 @@
+---
+async function getProjectImages() {
+    try {
+        const globbedImages = await Astro.glob('../../public/images/**/*');
+        
+        // Transform the complex objects into simple image data
+        return globbedImages.map(image => {
+            // Extract just the filename from the path
+            const fullPath = image.default.src;
+            const filename = fullPath.split('/').pop()?.split('?')[0] || '';
+            
+            // Create a clean path for the src attribute
+            // Remove the development server path prefix and query parameters
+            const cleanPath = fullPath.includes('public/images/')
+                ? `/images/${fullPath.split('public/images/')[1].split('?')[0]}`
+                : fullPath.replace(/\?.*$/, '');
+                
+            return {
+                src: cleanPath,
+                filename: filename,
+                width: image.default.width,
+                height: image.default.height,
+                format: image.default.format
+            };
+        });
+    } catch (error) {
+        console.error("Error loading images:", error);
+        return [];
+    }
+}
+
+const projectImages = await getProjectImages();
+---
+<div class="masonry-grid">
+  {projectImages && projectImages.length > 0 ? (
+    projectImages.map((image, index) => (
+      <div class="masonry-item">
+        <img 
+          src={image.src} 
+          alt={projectImages[index].filename}
+          loading="eager"
+          class="masonry-image"
+        />
+      </div>
+    ))
+  ) : (
+    <p>No images found for this project.</p>
+  )}
+</div>
+
+<style>
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    padding: 0 10%;
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+  }
+
+  .masonry-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  .masonry-image:hover {
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 768px) {
+    .masonry-grid {
+      grid-template-columns: 1fr;
+      padding: 0 5%;
+    }
+  }
+</style>
+
+
+
+
