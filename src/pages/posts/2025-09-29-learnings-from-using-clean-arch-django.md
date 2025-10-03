@@ -4,7 +4,7 @@ title: "Learnings from using clean architecture in Django"
 description: "Learnings from using clean architecture in Django"
 pubDate: 2025-09-29
 tags: ["python","django", "clean-architecture","architecture", "python", "backend"]
-categories: ["tech"]
+categories: ["technology"]
 ---
 
 If you spent any time setting yourself up for success in your backend framework of choice, you'll find one of the most common and paradoxical advice out there i.e. "Write code that is framework agnostic". Essentially the advice is to find a way to ignore the framework and write code in a way that is easily understood with minimal knowledge of the framework. I have been a backend developer for three years and have primarily used Django to ship code for an Enterprise SaaS product. The TLDR of what I've learned in these three years is: it depends.
