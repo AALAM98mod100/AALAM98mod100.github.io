@@ -18,7 +18,7 @@ For context, our product spans a quarter of a million LoC and we are a team of 2
 
 Now, to be fair, 2 and 3 are pretty similar but I feel there is a nuanced difference which I'll go into soon. Let's discuss the first approach i.e. fat-models
 
-#### Fat Models
+## Fat Models
 This is the approach you will be expected to take when you start reading the official Django reference for the first time. In this approach, business logic is coupled with framework code as the methods on the model classes handle the I/O as well as the logic. An often underrated benefit of this approach is it fits the Django philosphy and their slogan "...for perfectionists with deadlines". This is a quick way to get things up and running and build out your first feature using Django. I would recommend using this approach if you're just learning stuff or need to ship/prototype quickly. It gets the job done for what it's worth.
 
 The most common problem here is testing. It becomes too cumbersome waiting for Django to spin up a testing db, apply the hundreds of migrations, only to run a few tests. The central theme of testing is that you'll not really _feel_ like writing tests this way.
@@ -43,7 +43,7 @@ class User(models.Model):
 
 _Key Takeaway: you're just starting out but not sure how far you'll take your project, use the fat-models approach for rapid prototyping and pair it with a good set of libraries to mitigate the pitfalls. You will have time to improve your codebase but that can always be done later._
 
-#### Clean Architecture
+## Clean Architecture
 This has been a surprisingly polarizing topic in my team. On the surface, clean architecture seems the perfect mitigation of all the pitfalls of Django. It's great for testability, making changes it easier, and it has inherently more reusability. It is perhaps the most common term a mid-level engineer could be expected to know about just as SOLID principles are for a new hire. It is ubiquitous and claims a substantial mindshare in the community. On the other hand, it is the complete antithesis of the fat-models approach and goes against the grain of the Django way of doing things. I will not explain on what it is but I will discuss how we have been using it in our team.
 
 We have been using Django for quite a while using the first approach. However, as we have grown, we have been begun using the Clean Architecture pattern for a few of our apps. What we _haven't_ done is make the clean architecture pattern the standard and use it in all new code. That would bring about the biggest pitfall that we found in this approach. At the risk of sounding extremely naive and short-sighted, it takes a while to set it up. One needs to be good at thinking about the long-term implications that would best help set up a new service. That being said, it has served us well _where needed_.
@@ -83,7 +83,7 @@ Note that the `UserRepository` in this example serves as an adapter between Djan
 
 _Key Takeaway: The clean architecture pattern is well suited for "perfectionists with farther off deadlines" but its benefits can be immense if used correctly. If you have the time and resources, you should give it a try._
 
-#### Service Layer
+## Service Layer
 This is a pattern that is similar to clean architecture but with a few differences. It is a pattern that is often used in Django projects and is a good way to keep your code DRY-compliant. This architecture lies somewhere between the fat-models and the full-blown CA approach. We have used it on occasion and is good for shipping code quickly but with a degree of isolation that is beneficial for testing. I will not go into the details here but suffice to say that it has been useful for us in cases where we needed to quickly develop a prototype for a very specific use case and be able to integrate it quickly into the codebase. In such cases, all it takes to represent a feature is a single file which gathers all the data, executes on it, and spits out the results. And whichever part of the code, be it a model class or a utility method, needs the result can invoke this file. Here's a simple diagram to illustrate this.
 
 ![Service layer architecture diagram](../../assets/img/service_layer.png)
@@ -120,7 +120,7 @@ The `classify_user.py` file is self-contained and together with the tests, serve
 
 _Key Takeaway: Use the service layer approach if you're familiar with the idea of isolating business logic but just want to toe-dip without going the CA route. You will need to be careful with the dependencies but it's a good way to get started._
 
-#### Conclusion
+## Conclusion
 The take-away from this is that there is no one-size-fits-all approach to shipping software. It depends on the project, the team, and the goals of the project. The key is to be aware of the pros and cons of each approach and to choose the one that is most suitable for the project. A good engineer should never be a slave to a single approach. Here's a quick summary of the "it-depends" approach:
 
 - Fat models: Good for rapid prototyping and shipping code quickly.
