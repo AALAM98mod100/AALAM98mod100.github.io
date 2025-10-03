@@ -24,6 +24,7 @@ This is the approach you will be expected to take when you start reading the off
 The most common problem here is testing. It becomes too cumbersome waiting for Django to spin up a testing db, apply the hundreds of migrations, only to run a few tests. The central theme of testing is that you'll not really _feel_ like writing tests this way.
 
 ![Fat models](../../assets/img/fat_models.png)
+*Fat models*
 
 Here's how a `classify_user` utility would look in the fat models approach:
 
@@ -50,6 +51,7 @@ We have been using Django for quite a while using the first approach. However, a
 You see, there are primarily two kinds of code we write: I/O heavy and compute heavy. And a service can be expected to require both types of code to varying degrees. I call the first type the cruddy code - where we mainly want something to go into or out of the database with a minimal set of transformations applied. As it turns out, most new features in our product are suited to this pattern. Here, it's more suitable to go with the Django way of doing things. After all, its perfectly suited for such cases. The second type of code, being more algorithmic, requires us to think in a different direction. Here we care about the db only at the start and perhaps at the end some component and the big chunk in the middle is compute-heavy. This is where clean architecture shines for us. It has enabled our most complex parts of the codebase to be well covered by tests. A huge benefit of tests that deal with Pythonic entities and less with the db is that they are _fast_. Perhaps an order of magnitude faster than the tests that will access your database and require setting up some stuff before-hand. As an example, we would run a couple dozen CRUD tests in around 10 seconds. In that same time, we could run hundreds of algorithmic tests.
 
 ![Clean Architecture](../../assets/img/clean_arch.png)
+*Clean Architecture*
 
 A key aspect of Clean Architecture in Django is maintaining separate domain entities from Django ORM models. This separation is what enables the framework-agnostic business logic:
 
@@ -84,7 +86,9 @@ _Key Takeaway: The clean architecture pattern is well suited for "perfectionists
 #### Service Layer
 This is a pattern that is similar to clean architecture but with a few differences. It is a pattern that is often used in Django projects and is a good way to keep your code DRY-compliant. This architecture lies somewhere between the fat-models and the full-blown CA approach. We have used it on occasion and is good for shipping code quickly but with a degree of isolation that is beneficial for testing. I will not go into the details here but suffice to say that it has been useful for us in cases where we needed to quickly develop a prototype for a very specific use case and be able to integrate it quickly into the codebase. In such cases, all it takes to represent a feature is a single file which gathers all the data, executes on it, and spits out the results. And whichever part of the code, be it a model class or a utility method, needs the result can invoke this file. Here's a simple diagram to illustrate this.
 
-![title](../../assets/img/service_layer.png)
+![Service layer architecture diagram](../../assets/img/service_layer.png)
+
+*Service layer architecture*
 
 Here's how the same feature would look in the service layer approach:
 
