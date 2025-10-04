@@ -8,6 +8,8 @@ nav {
   padding: 1rem 2rem;
   background-color: var(--background-color);
   box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
 }
 
 /* Transparent navigation for photography pages */
