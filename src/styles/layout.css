@@ -9,6 +9,12 @@ nav {
   background-color: var(--background-color);
   box-shadow: var(--shadow);
 }
+
+/* Transparent navigation for photography pages */
+nav.transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
   
 .site-title a {
   font-size: 1.5rem;

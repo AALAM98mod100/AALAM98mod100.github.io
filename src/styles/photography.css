@@ -2,7 +2,7 @@
 /* *{
   border: 1px solid red;
 } */
-nav {
+nav.transparent {
   width: 100%;    
   position: sticky;
   /* position: -webkit-sticky; */
@@ -12,7 +12,6 @@ nav {
   -webkit-transition: top 0.8s;
   -moz-transition: top 0.8s;
   -o-transition: top 0.8s;
-  background-color: transparent;
 }
 .linkbox{
   display: flex;
