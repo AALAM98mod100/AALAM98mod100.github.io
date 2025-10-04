@@ -1,4 +1,6 @@
 ---
+import { LightGallery } from 'astro-lightgallery';
+
 async function getProjectImages() {
     try {
         const globbedImages = await Astro.glob('../../public/images/**/*');
@@ -14,7 +16,7 @@ async function getProjectImages() {
             const cleanPath = fullPath.includes('public/images/')
                 ? `/images/${fullPath.split('public/images/')[1].split('?')[0]}`
                 : fullPath.replace(/\?.*$/, '');
-                
+
             return {
                 src: cleanPath,
                 filename: filename,
@@ -31,19 +33,17 @@ async function getProjectImages() {
 
 const projectImages = await getProjectImages();
 ---
-<div class="masonry-grid">
-  {projectImages && projectImages.length > 0 ? (
-    projectImages.map((image, index) => (
-      <div class="masonry-item">
-        <img 
-          src={image.src} 
-          alt={projectImages[index].filename}
-          loading="eager"
-          class="masonry-image"
-        />
-      </div>
-    ))
-  ) : (
-    <p>No images found for this project.</p>
-  )}
-</div>
+<LightGallery
+layout={{
+  imgs: 
+    projectImages.map(image => ({ src: image.src, subHtml: `<h4>Photo by - <a href='https://ammaralam.me'>Ammar Alam</a></h4>` })),
+  adaptive: {
+    zoom: 200,
+  }
+  
+}}
+options={{
+  thumbnail: true,
+  download: false,
+}}
+/>
