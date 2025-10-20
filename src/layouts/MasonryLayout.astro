@@ -1,37 +1,48 @@
 ---
 import { LightGallery } from 'astro-lightgallery';
 
-async function getProjectImages() {
-    try {
-        const globbedImages = await Astro.glob('../../public/images/**/*');
-        
-        // Transform the complex objects into simple image data
-        return globbedImages.map(image => {
-            // Extract just the filename from the path
-            const fullPath = image.default.src;
-            const filename = fullPath.split('/').pop()?.split('?')[0] || '';
-            
-            // Create a clean path for the src attribute
-            // Remove the development server path prefix and query parameters
-            const cleanPath = fullPath.includes('public/images/')
-                ? `/images/${fullPath.split('public/images/')[1].split('?')[0]}`
-                : fullPath.replace(/\?.*$/, '');
+// R2 CDN base URL
+const R2_BASE_URL = 'https://cdn.ammaralam.me';
 
-            return {
-                src: cleanPath,
-                filename: filename,
-                width: image.default.width,
-                height: image.default.height,
-                format: image.default.format
-            };
-        });
-    } catch (error) {
-        console.error("Error loading images:", error);
-        return [];
-    }
+// List of photography images hosted on R2
+const imageFilenames = [
+    '_DSF0436.jpg',
+    '_DSF0449.jpg', 
+    '_DSF0451.jpg',
+    '_DSF0466.jpg',
+    '_DSF0686.jpg',
+    '_DSF0788 1.jpg',
+    '_DSF3075.jpg',
+    '_DSF3114.jpg',
+    '_DSF3126.jpg',
+    '_DSF3143.jpg',
+    '_DSF3171.jpg',
+    '_DSF3225.jpg',
+    '_DSF3381.jpg',
+    '_DSF3605.jpg',
+    '_DSF3622.jpg',
+    '_DSF3645 1.jpg',
+    '_DSF3836.jpg',
+    '_DSF4509.jpg',
+    '_DSF4618.jpg',
+    '_DSF4676.jpg',
+    '_DSF4963 1.jpg',
+    'akbarpura-leaf.jpg',
+    'light_beam.jpg'
+];
+
+function getProjectImages() {
+    return imageFilenames.map(filename => ({
+        src: `${R2_BASE_URL}/photography/${filename}`,
+        filename: filename,
+        // Note: Width/height not available from R2 URLs, but LightGallery will handle this
+        width: undefined,
+        height: undefined,
+        format: 'jpg'
+    }));
 }
 
-const projectImages = await getProjectImages();
+const projectImages = getProjectImages();
 ---
 <LightGallery
 layout={{
