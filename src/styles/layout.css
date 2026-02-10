@@ -40,6 +40,41 @@ nav.transparent {
   color: var(--primary-color);
 }
 
+.nav-links a.nav-photography:hover {
+  background: linear-gradient(90deg, #d4a853, #f0d78c, #c4956a, #8b7d5e, #fffbe6, #d4a853);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 2s linear infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.cursor-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  animation: particle-fade 2s ease-out forwards;
+}
+
+@keyframes particle-fade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) translateY(-20px);
+  }
+}
+
 /* Main Content Area */
 main {
   max-width: var(--container-width);
