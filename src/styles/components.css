@@ -101,6 +101,33 @@
   margin: 0 auto;
 }
 
+.name-highlight {
+  color: var(--accent-color);
+}
+
+.section-divider {
+  border: none;
+  border-top: 2px solid var(--accent-color);
+  margin: 2rem 0 0;
+  opacity: 0.3;
+}
+
+.typewriter {
+  min-height: 1.2em;
+}
+
+.typewriter .cursor {
+  display: inline-block;
+  width: 2px;
+  background-color: var(--primary-color);
+  margin-left: 2px;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
 /* Error Page */
 .error-container {
   text-align: center;

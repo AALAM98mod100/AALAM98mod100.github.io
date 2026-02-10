@@ -30,19 +30,46 @@ const recentPosts = sortedPosts; //.slice(0, 3);
 	<div class="home-content">
 			<div > 
 			  <div class="page-content">
-				<h1>Welcome to My Website</h1>
-				<p>This is the personal website of Ammar Alam. Feel free to explore my thoughts on books, technology, life, and photography.</p>
-				
-				<p>I'm a backend developer with over 3 years of experience building enterprise SaaS products. I specialize in Django, Python, and clean architecture patterns, working with large codebases and teams of 20+ engineers across 6 timezones.</p>
-				
-				<p>Beyond code, I'm passionate about literature, photography, and exploring the intersection of technology and human creativity. I enjoy diving deep into complex topics, from Dostoevsky's psychological insights to the architectural patterns that shape modern software.</p>
+				<h1 class="typewriter" id="typewriter"></h1>
+				<p>Or rather, his digital twin.<br />Building the future of EdTech.<br />And sometimes write about artsy stuff.</p>
 			  </div>
 
 			</div>
-			<PostList 
-				posts={recentPosts} 
-				emptyMessage="No posts available yet. Check back soon!" 
+			<hr class="section-divider" />
+			<PostList
+				posts={recentPosts}
+				emptyMessage="No posts available yet. Check back soon!"
 			/>
 		</div>
 	</div>
 </BaseLayout>
+
+<script>
+  const el = document.getElementById('typewriter');
+  const text = "Hi, I'm ";
+  const name = "Ammar";
+  let i = 0;
+  const full = text + name;
+
+  function type() {
+    if (i <= full.length) {
+      let html = '';
+      const typed = full.slice(0, i);
+      if (i > text.length) {
+        html = text + '<span class="name-highlight">' + typed.slice(text.length) + '</span>';
+      } else {
+        html = typed;
+      }
+      html += '<span class="cursor">&nbsp;</span>';
+      el!.innerHTML = html;
+      i++;
+      setTimeout(type, 80);
+    } else {
+      // Remove cursor after a short pause
+      setTimeout(() => {
+        el!.innerHTML = text + '<span class="name-highlight">' + name + '</span>';
+      }, 1500);
+    }
+  }
+  type();
+</script>
