@@ -43,6 +43,9 @@ function renderCategories(categories: CategoryType[] | CategoryType) {
             {post.frontmatter.description && (
               <p class="post-description">{post.frontmatter.description}</p>
             )}
+            {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+              <div class="post-tags">{post.frontmatter.tags.map(t => `#${t}`).join('  ')}</div>
+            )}
           </div>
         </a>
       </div>

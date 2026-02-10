@@ -10,15 +10,19 @@ interface Props {
   updatedDate?: Date | string;
   categories: CategoryType[] | CategoryType;
   private?: boolean;
+  tags?: string[];
+  readingTime?: number;
 }
 
-const { 
-  title, 
-  description, 
-  pubDate: pubDateRaw, 
-  updatedDate: updatedDateRaw, 
-  categories, 
-  private: isPrivate 
+const {
+  title,
+  description,
+  pubDate: pubDateRaw,
+  updatedDate: updatedDateRaw,
+  categories,
+  private: isPrivate,
+  tags,
+  readingTime
 } = Astro.props;
 
 // Format dates using the shared utility function
@@ -30,7 +34,7 @@ function getISOString(dateInput: string | Date): string {
   if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateInput)) {
     return `${dateInput}T12:00:00Z`;
   }
-  
+
   try {
     if (dateInput instanceof Date) {
       return dateInput.toISOString();
@@ -56,32 +60,52 @@ const categoryArray = Array.isArray(categories) ? categories : [categories];
         <p>⚠️ This is a private post and is not visible to the public.</p>
       </div>
     )}
-    
+
     <header class="blog-header">
       <h1 class="blog-title">{title}</h1>
       <div class="blog-meta">
         <span class="blog-date">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
           <time datetime={pubDateISO}>{formattedPubDate}</time>
         </span>
-        
+
         {updatedDateRaw && updatedDateISO && (
-          <span class="blog-date updated">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-            Updated: <time datetime={updatedDateISO}>{formattedUpdatedDate}</time>
-          </span>
+          <>
+            <span class="blog-meta-separator">&middot;</span>
+            <span class="blog-date updated">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+              Updated: <time datetime={updatedDateISO}>{formattedUpdatedDate}</time>
+            </span>
+          </>
         )}
-        
+
+        {readingTime && (
+          <>
+            <span class="blog-meta-separator">&middot;</span>
+            <span class="blog-reading-time">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              {readingTime} min
+            </span>
+          </>
+        )}
+
+        <span class="blog-meta-separator">&middot;</span>
         <div class="blog-categories">
           {categoryArray.map(category => (
             <a href={`/${category}/`} class="post-category">{category}</a>
           ))}
         </div>
       </div>
+      {tags && tags.length > 0 && (
+        <div class="blog-tags">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+          {tags.map(t => `#${t}`).join(', ')}
+        </div>
+      )}
     </header>
-    
+
     <div class="blog-content">
       <slot />
     </div>
   </article>
-</BaseLayout> 
+</BaseLayout>

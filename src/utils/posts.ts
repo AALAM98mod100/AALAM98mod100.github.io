@@ -26,6 +26,7 @@ export interface Frontmatter {
   image?: string;
   private?: boolean;
   categories: CategoryType[] | CategoryType; // Now supports single category or array of categories
+  tags?: string[];
 }
 
 /**
