@@ -27,39 +27,3 @@ const navItems = [
     ))}
   </div>
 </nav>
-
-<script>
-  const link = document.querySelector('.nav-photography');
-  if (link) {
-    const colors = ['#d4a853', '#f0d78c', '#c4956a', '#8b7d5e', '#fffbe6', '#2a7b88'];
-    let trailActive = false;
-    let trailTimeout: ReturnType<typeof setTimeout>;
-
-    function spawnParticle(e: MouseEvent) {
-      const dot = document.createElement('span');
-      dot.className = 'cursor-particle';
-      dot.style.left = e.clientX + 'px';
-      dot.style.top = e.clientY + 'px';
-      dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      document.body.appendChild(dot);
-      setTimeout(() => dot.remove(), 2000);
-    }
-
-    function onMouseMove(e: MouseEvent) {
-      if (trailActive) spawnParticle(e);
-    }
-
-    document.addEventListener('mousemove', onMouseMove);
-
-    link.addEventListener('mouseenter', () => {
-      clearTimeout(trailTimeout);
-      trailActive = true;
-    });
-
-    link.addEventListener('mouseleave', () => {
-      trailTimeout = setTimeout(() => {
-        trailActive = false;
-      }, 2000);
-    });
-  }
-</script>
