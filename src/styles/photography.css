@@ -2,6 +2,7 @@
 /* *{
   border: 1px solid red;
 } */
+
 nav.transparent {
   width: 100%;    
   position: sticky;
@@ -27,7 +28,7 @@ nav.transparent {
 .homeheader {
   height: 100vh;
   /* background-image: url('/images/akbarpura-leaf.jpg'); */
-  background-image: url('/images/light_beam.jpg');
+  background-image: url('https://cdn.ammaralam.me/photography/light_beam-optimized.webp');
   /* background-image: url('/images/_DSF3075.jpg'); */
   background-size: cover;
   background-repeat: no-repeat;

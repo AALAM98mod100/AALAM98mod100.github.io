@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "generate-thumbs": "node scripts/generate-thumbnails.js",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -11,5 +12,8 @@
   "dependencies": {
     "astro": "^5.4.2",
     "astro-lightgallery": "^2.0.1"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

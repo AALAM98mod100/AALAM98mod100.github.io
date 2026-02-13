@@ -32,26 +32,32 @@ const imageFilenames = [
 ];
 
 function getProjectImages() {
-    return imageFilenames.map(filename => ({
-        src: `${R2_BASE_URL}/photography/${filename}`,
-        filename: filename,
-        // Note: Width/height not available from R2 URLs, but LightGallery will handle this
-        width: undefined,
-        height: undefined,
-        format: 'jpg'
-    }));
+    return imageFilenames.map(filename => {
+        const filenameWithoutExt = filename.replace('.jpg', '');
+        return {
+            // Full-resolution R2 URL for lightbox modal
+            src: `${R2_BASE_URL}/photography/${filename}`,
+            // Optimized thumbnail from R2 CDN
+            srcThumb: `${R2_BASE_URL}/photography/thumbs/${filenameWithoutExt}.webp`,
+            subHtml: `<h4>Photo by - <a href='https://ammaralam.me'>Ammar Alam</a></h4>`
+        };
+    });
 }
 
 const projectImages = getProjectImages();
 ---
 <LightGallery
 layout={{
-  imgs: 
-    projectImages.map(image => ({ src: image.src, subHtml: `<h4>Photo by - <a href='https://ammaralam.me'>Ammar Alam</a></h4>` })),
+  imgs:
+    projectImages.map(image => ({
+      src: image.src,         // Full-res from R2 for modal
+      srcThumb: image.srcThumb,  // Optimized local thumbnail for grid
+      subHtml: image.subHtml
+    })),
   adaptive: {
     zoom: 200,
   }
-  
+
 }}
 options={{
   thumbnail: true,

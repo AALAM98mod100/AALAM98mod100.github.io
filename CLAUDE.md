@@ -9,6 +9,7 @@ Personal website/blog for Ammar Alam, built with **Astro 5** and deployed to Git
 - `npm run dev` — Local dev server at localhost:4321
 - `npm run build` — Production build to `./dist/`
 - `npm run preview` — Preview production build locally
+- `npm run generate-thumbs` — Generate WebP thumbnails and upload to R2 (requires `wrangler` auth)
 
 ## Architecture
 
@@ -72,8 +73,23 @@ categories: ["technology"]
 2. Create `src/pages/newcategory/index.astro`
 3. Update `src/components/Navigation.astro`
 
+### Photography images
+
+- All images hosted on Cloudflare R2 (bucket: `ammaralam-me`) at `https://cdn.ammaralam.me/photography/`
+- Full-resolution originals served in LightGallery modal on click
+- Optimized 800px WebP thumbnails served in the gallery grid from `photography/thumbs/`
+- Hero background uses an optimized 1920px WebP at `photography/light_beam-optimized.webp`
+- `MasonryLayout.astro` uses `srcThumb` (not `thumb`) for the astro-lightgallery component
+- Image filenames are listed in the `imageFilenames` array in `src/layouts/MasonryLayout.astro`
+
+### Adding new photos
+
+1. Place original JPEGs in `public/images/`
+2. Run `npm run generate-thumbs` — generates WebP thumbnails and uploads both originals + thumbnails to R2
+3. Add filenames to the `imageFilenames` array in `src/layouts/MasonryLayout.astro`
+4. Remove the originals from `public/images/` (they should not stay in the repo)
+
 ## Configuration
 
 - `astro.config.mjs` — Site URL, trailing slash, build settings
 - Deployed via GitHub Pages with custom domain
-- Photography images hosted on Cloudflare R2
