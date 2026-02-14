@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 .wrangler/
 .thumbs/
+
+# photography originals (hosted on R2 CDN)
+public/images/
