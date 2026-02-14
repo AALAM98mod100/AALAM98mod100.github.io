@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "astro": "^5.4.2",
-    "astro-lightgallery": "^2.0.1"
+    "astro-lightgallery": "^2.0.1",
+    "exif-reader": "^2.0.3"
   },
   "devDependencies": {
     "sharp": "^0.34.5"

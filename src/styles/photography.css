@@ -143,9 +143,26 @@ a.active {
   transform: scale(1.02);
 }
 
+/* EXIF metadata in LightGallery modal */
+.lg-sub-html .lg-exif-info {
+  margin: 4px 0 0;
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.02em;
+}
+
+.lg-sub-html .lg-exif-sep {
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 2px;
+}
+
 @media (max-width: 768px) {
   .masonry-grid {
     grid-template-columns: 1fr;
     padding: 0 5%;
+  }
+
+  .lg-sub-html .lg-exif-info {
+    font-size: 0.7em;
   }
 }

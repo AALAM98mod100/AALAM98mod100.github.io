@@ -1,5 +1,6 @@
 ---
 import { LightGallery } from 'astro-lightgallery';
+import photoMetadata from '../data/photo-metadata.json';
 
 // R2 CDN base URL
 const R2_BASE_URL = 'https://cdn.ammaralam.me';
@@ -7,7 +8,7 @@ const R2_BASE_URL = 'https://cdn.ammaralam.me';
 // List of photography images hosted on R2
 const imageFilenames = [
     '_DSF0436.jpg',
-    '_DSF0449.jpg', 
+    '_DSF0449.jpg',
     '_DSF0451.jpg',
     '_DSF0466.jpg',
     '_DSF0686.jpg',
@@ -31,6 +32,25 @@ const imageFilenames = [
     'light_beam.jpg'
 ];
 
+function buildSubHtml(filename: string): string {
+    const credit = `<h4>Photo by - <a href='https://ammaralam.me'>Ammar Alam</a></h4>`;
+    const meta = (photoMetadata as Record<string, any>)[filename];
+    if (!meta) return credit;
+
+    const parts: string[] = [];
+    if (meta.camera) parts.push(meta.camera);
+    if (meta.lens) parts.push(meta.lens);
+    const settings: string[] = [];
+    if (meta.focalLength) settings.push(`${meta.focalLength}mm`);
+    if (meta.aperture) settings.push(`f/${meta.aperture}`);
+    if (meta.shutterSpeed) settings.push(meta.shutterSpeed);
+    if (meta.iso) settings.push(`ISO ${meta.iso}`);
+    if (settings.length) parts.push(settings.join(' · '));
+
+    if (!parts.length) return credit;
+    return `${credit}<p class="lg-exif-info">${parts.join('<span class="lg-exif-sep"> | </span>')}</p>`;
+}
+
 function getProjectImages() {
     return imageFilenames.map(filename => {
         const filenameWithoutExt = filename.replace('.jpg', '');
@@ -39,7 +59,7 @@ function getProjectImages() {
             src: `${R2_BASE_URL}/photography/${filename}`,
             // Optimized thumbnail from R2 CDN
             srcThumb: `${R2_BASE_URL}/photography/thumbs/${filenameWithoutExt}.webp`,
-            subHtml: `<h4>Photo by - <a href='https://ammaralam.me'>Ammar Alam</a></h4>`
+            subHtml: buildSubHtml(filename)
         };
     });
 }
