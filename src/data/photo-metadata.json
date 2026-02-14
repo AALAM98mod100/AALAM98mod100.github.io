@@ -1,4 +1,156 @@
 {
+  "_DSF0449.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 160,
+    "aperture": 8,
+    "shutterSpeed": "1/320s",
+    "focalLength": 35
+  },
+  "_DSF0451.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 160,
+    "aperture": 8,
+    "shutterSpeed": "1/350s",
+    "focalLength": 35
+  },
+  "_DSF0466.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 160,
+    "aperture": 8,
+    "shutterSpeed": "1/45s",
+    "focalLength": 35
+  },
+  "_DSF0686.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 320,
+    "aperture": 2,
+    "shutterSpeed": "1/80s",
+    "focalLength": 35
+  },
+  "_DSF0788 1.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 160,
+    "aperture": 4,
+    "shutterSpeed": "1/1800s",
+    "focalLength": 35
+  },
+  "_DSF3075.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 320,
+    "aperture": 2,
+    "shutterSpeed": "1/75s",
+    "focalLength": 35
+  },
+  "_DSF3114.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 4,
+    "shutterSpeed": "1/28s",
+    "focalLength": 50.5
+  },
+  "_DSF3126.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 5.6,
+    "shutterSpeed": "1/1250s",
+    "focalLength": 58.6
+  },
+  "_DSF3143.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 8,
+    "shutterSpeed": "1/58s",
+    "focalLength": 80
+  },
+  "_DSF3171.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 5.6,
+    "shutterSpeed": "1/1000s",
+    "focalLength": 52.4
+  },
+  "_DSF3225.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 4,
+    "shutterSpeed": "1/240s",
+    "focalLength": 60.8
+  },
+  "_DSF3381.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 8,
+    "shutterSpeed": "1/900s",
+    "focalLength": 16
+  },
+  "_DSF3605.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 400,
+    "aperture": 2,
+    "shutterSpeed": "1/52s",
+    "focalLength": 35
+  },
+  "_DSF3645 1.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 5.6,
+    "shutterSpeed": "1/28s",
+    "focalLength": 80
+  },
+  "_DSF3836.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 8,
+    "shutterSpeed": "1/600s",
+    "focalLength": 22.3
+  },
+  "_DSF4509.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 400,
+    "aperture": 5.6,
+    "shutterSpeed": "1/30s",
+    "focalLength": 80
+  },
+  "_DSF4618.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 1000,
+    "aperture": 2,
+    "shutterSpeed": "1/52s",
+    "focalLength": 35
+  },
+  "_DSF4676.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XC35mmF2",
+    "iso": 500,
+    "aperture": 2,
+    "shutterSpeed": "1/52s",
+    "focalLength": 35
+  },
+  "_DSF4963 1.jpg": {
+    "camera": "FUJIFILM X-T4",
+    "lens": "XF16-80mmF4 R OIS WR",
+    "iso": 160,
+    "aperture": 5.6,
+    "shutterSpeed": "1/500s",
+    "focalLength": 56.5
+  },
   "akbarpura-leaf.jpg": {
     "camera": "FUJIFILM X-T4",
     "lens": "XF16-80mmF4 R OIS WR",

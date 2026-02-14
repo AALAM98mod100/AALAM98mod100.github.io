@@ -21,7 +21,7 @@ const HERO_QUALITY = 80;
 function uploadToR2(localPath, r2Key) {
   console.log(`  ↑ Uploading to ${r2Key}`);
   execSync(`wrangler r2 object put "${R2_BUCKET}/${r2Key}" --file="${localPath}" --remote`, {
-    stdio: 'inherit',
+    stdio: 'pipe',
   });
 }
 
@@ -70,6 +70,8 @@ async function generateThumbnails() {
   const imageFiles = files.filter(f => /\.(jpg|jpeg)$/i.test(f) && f !== 'light_beam.jpg');
 
   const photoMetadata = {};
+  const succeeded = [];
+  const failed = [];
 
   // Generate and upload thumbnails for gallery images
   for (const file of imageFiles) {
@@ -77,49 +79,73 @@ async function generateThumbnails() {
     const outputFilename = path.parse(file).name + '.webp';
     const outputPath = path.join(outputDir, outputFilename);
 
-    await sharp(inputPath)
-      .resize(THUMB_WIDTH, null, {
-        fit: 'inside',
-        withoutEnlargement: true,
-      })
-      .webp({ quality: QUALITY })
-      .toFile(outputPath);
+    try {
+      await sharp(inputPath)
+        .resize(THUMB_WIDTH, null, {
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
+        .webp({ quality: QUALITY })
+        .toFile(outputPath);
 
-    // Extract EXIF metadata
-    const exif = await extractExif(inputPath);
-    if (exif) {
-      photoMetadata[file] = exif;
-      console.log(`  📷 ${file}: ${exif.camera || 'unknown'}, ISO ${exif.iso || '?'}, f/${exif.aperture || '?'}, ${exif.shutterSpeed || '?'}`);
+      // Extract EXIF metadata
+      const exif = await extractExif(inputPath);
+      if (exif) {
+        photoMetadata[file] = exif;
+        console.log(`  📷 ${file}: ${exif.camera || 'unknown'}, ISO ${exif.iso || '?'}, f/${exif.aperture || '?'}, ${exif.shutterSpeed || '?'}`);
+      }
+
+      console.log(`  ✓ ${file} → ${outputFilename}`);
+      uploadToR2(inputPath, `photography/${file}`);
+      uploadToR2(outputPath, `photography/thumbs/${outputFilename}`);
+      console.log('');
+      succeeded.push(file);
+    } catch (err) {
+      console.error(`  ✗ ${file} — FAILED: ${err.message}\n`);
+      failed.push({ file, error: err.message });
     }
-
-    console.log(`  ✓ ${file} → ${outputFilename}`);
-    uploadToR2(inputPath, `photography/${file}`);
-    uploadToR2(outputPath, `photography/thumbs/${outputFilename}`);
-    console.log('');
   }
 
-  // Write EXIF metadata JSON
+  // Write EXIF metadata JSON (only for succeeded photos)
   await fs.mkdir(path.dirname(metadataOutputPath), { recursive: true });
   await fs.writeFile(metadataOutputPath, JSON.stringify(photoMetadata, null, 2) + '\n');
   console.log(`\n📄 Wrote photo metadata to src/data/photo-metadata.json`);
 
   // Optimize and upload hero background image
   const heroInput = path.join(sourceDir, 'light_beam.jpg');
-  const heroOutput = path.join(outputDir, 'light_beam-optimized.webp');
+  try {
+    await fs.access(heroInput);
+    const heroOutput = path.join(outputDir, 'light_beam-optimized.webp');
 
-  await sharp(heroInput)
-    .resize(HERO_WIDTH, null, { fit: 'inside' })
-    .webp({ quality: HERO_QUALITY })
-    .toFile(heroOutput);
+    await sharp(heroInput)
+      .resize(HERO_WIDTH, null, { fit: 'inside' })
+      .webp({ quality: HERO_QUALITY })
+      .toFile(heroOutput);
 
-  console.log(`  ✓ light_beam.jpg → light_beam-optimized.webp`);
-  uploadToR2(heroInput, 'photography/light_beam.jpg');
-  uploadToR2(heroOutput, 'photography/light_beam-optimized.webp');
+    console.log(`  ✓ light_beam.jpg → light_beam-optimized.webp`);
+    uploadToR2(heroInput, 'photography/light_beam.jpg');
+    uploadToR2(heroOutput, 'photography/light_beam-optimized.webp');
+  } catch (err) {
+    console.error(`  ✗ light_beam.jpg (hero) — FAILED: ${err.message}`);
+    failed.push({ file: 'light_beam.jpg (hero)', error: err.message });
+  }
 
   // Clean up temp directory
   await fs.rm(outputDir, { recursive: true });
 
-  console.log('\n✅ Thumbnails generated and uploaded to R2!');
+  // Summary
+  console.log('\n' + '—'.repeat(50));
+  console.log(`  ${succeeded.length} succeeded, ${failed.length} failed out of ${imageFiles.length} photos`);
+  if (failed.length > 0) {
+    console.log('\n  Failed photos:');
+    for (const { file, error } of failed) {
+      console.log(`    ✗ ${file}: ${error}`);
+    }
+    console.log('');
+    process.exit(1);
+  } else {
+    console.log('\n✅ All thumbnails generated and uploaded to R2!');
+  }
 }
 
 generateThumbnails().catch(console.error);
