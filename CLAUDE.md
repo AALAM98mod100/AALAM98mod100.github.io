@@ -84,10 +84,11 @@ categories: ["technology"]
 
 ### Adding new photos
 
+Images are **never committed to the repo** — `public/images/` is gitignored. All photography is served from Cloudflare R2 CDN.
+
 1. Place original JPEGs in `public/images/`
-2. Run `npm run generate-thumbs` — generates WebP thumbnails and uploads both originals + thumbnails to R2
+2. Run `npm run generate-thumbs` — generates 800px WebP thumbnails and uploads both originals + thumbnails to R2 (requires `wrangler` auth)
 3. Add filenames to the `imageFilenames` array in `src/layouts/MasonryLayout.astro`
-4. Remove the originals from `public/images/` (they should not stay in the repo)
 
 ## Configuration
 
