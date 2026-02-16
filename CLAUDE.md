@@ -94,3 +94,7 @@ Images are **never committed to the repo** — `public/images/` is gitignored. A
 
 - `astro.config.mjs` — Site URL, trailing slash, build settings
 - Deployed via GitHub Pages with custom domain
+
+## Documentation Lookup
+
+Always use the Context7 MCP server when you need library/API documentation, code examples, setup or configuration steps — without me having to explicitly ask. This applies to any library or framework referenced in the project (Astro, LightGallery, Cloudflare, etc.).
