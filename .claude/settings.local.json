@@ -12,7 +12,10 @@
       "Bash(npm run preview:*)",
       "Bash(npm run generate-thumbs:*)",
       "Bash(grep:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git -C /Users/ammaralam/AALAM98mod100.github.io status --short)",
+      "Bash(npx sharp-cli:*)",
+      "Bash(curl:*)"
     ]
   }
 }

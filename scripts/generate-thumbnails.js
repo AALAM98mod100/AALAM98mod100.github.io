@@ -13,13 +13,17 @@ const R2_BUCKET = 'ammaralam-me';
 const metadataOutputPath = path.join(__dirname, '../src/data/photo-metadata.json');
 
 // Configuration
-const THUMB_WIDTH = 800;
+const THUMB_MIN_DIM = 1200;
 const QUALITY = 85;
 const HERO_WIDTH = 1920;
 const HERO_QUALITY = 80;
 
+let uploadCount = 0;
+let totalUploads = 0;
+
 function uploadToR2(localPath, r2Key) {
-  console.log(`  ↑ Uploading to ${r2Key}`);
+  uploadCount++;
+  console.log(`  ↑ [${uploadCount}/${totalUploads}] ${r2Key}`);
   execSync(`wrangler r2 object put "${R2_BUCKET}/${r2Key}" --file="${localPath}" --remote`, {
     stdio: 'pipe',
   });
@@ -73,18 +77,22 @@ async function generateThumbnails() {
   const succeeded = [];
   const failed = [];
 
-  // Generate and upload thumbnails for gallery images
+  // Check if hero image exists to include in upload count
+  const heroInput = path.join(sourceDir, 'light_beam.jpg');
+  let hasHero = false;
+  try { await fs.access(heroInput); hasHero = true; } catch {}
+
+  totalUploads = imageFiles.length * 2 + (hasHero ? 2 : 0);
   for (const file of imageFiles) {
     const inputPath = path.join(sourceDir, file);
     const outputFilename = path.parse(file).name + '.webp';
     const outputPath = path.join(outputDir, outputFilename);
 
     try {
+      const meta = await sharp(inputPath).metadata();
+      const isLandscape = meta.width > meta.height;
       await sharp(inputPath)
-        .resize(THUMB_WIDTH, null, {
-          fit: 'inside',
-          withoutEnlargement: true,
-        })
+        .resize(isLandscape ? null : THUMB_MIN_DIM, isLandscape ? THUMB_MIN_DIM : null)
         .webp({ quality: QUALITY })
         .toFile(outputPath);
 
@@ -92,16 +100,12 @@ async function generateThumbnails() {
       const exif = await extractExif(inputPath);
       if (exif) {
         photoMetadata[file] = exif;
-        console.log(`  📷 ${file}: ${exif.camera || 'unknown'}, ISO ${exif.iso || '?'}, f/${exif.aperture || '?'}, ${exif.shutterSpeed || '?'}`);
       }
 
-      console.log(`  ✓ ${file} → ${outputFilename}`);
       uploadToR2(inputPath, `photography/${file}`);
       uploadToR2(outputPath, `photography/thumbs/${outputFilename}`);
-      console.log('');
       succeeded.push(file);
     } catch (err) {
-      console.error(`  ✗ ${file} — FAILED: ${err.message}\n`);
       failed.push({ file, error: err.message });
     }
   }
@@ -109,25 +113,22 @@ async function generateThumbnails() {
   // Write EXIF metadata JSON (only for succeeded photos)
   await fs.mkdir(path.dirname(metadataOutputPath), { recursive: true });
   await fs.writeFile(metadataOutputPath, JSON.stringify(photoMetadata, null, 2) + '\n');
-  console.log(`\n📄 Wrote photo metadata to src/data/photo-metadata.json`);
 
   // Optimize and upload hero background image
-  const heroInput = path.join(sourceDir, 'light_beam.jpg');
-  try {
-    await fs.access(heroInput);
-    const heroOutput = path.join(outputDir, 'light_beam-optimized.webp');
+  if (hasHero) {
+    try {
+      const heroOutput = path.join(outputDir, 'light_beam-optimized.webp');
 
-    await sharp(heroInput)
-      .resize(HERO_WIDTH, null, { fit: 'inside' })
-      .webp({ quality: HERO_QUALITY })
-      .toFile(heroOutput);
+      await sharp(heroInput)
+        .resize(HERO_WIDTH, null, { fit: 'inside' })
+        .webp({ quality: HERO_QUALITY })
+        .toFile(heroOutput);
 
-    console.log(`  ✓ light_beam.jpg → light_beam-optimized.webp`);
-    uploadToR2(heroInput, 'photography/light_beam.jpg');
-    uploadToR2(heroOutput, 'photography/light_beam-optimized.webp');
-  } catch (err) {
-    console.error(`  ✗ light_beam.jpg (hero) — FAILED: ${err.message}`);
-    failed.push({ file: 'light_beam.jpg (hero)', error: err.message });
+      uploadToR2(heroInput, 'photography/light_beam.jpg');
+      uploadToR2(heroOutput, 'photography/light_beam-optimized.webp');
+    } catch (err) {
+      failed.push({ file: 'light_beam.jpg (hero)', error: err.message });
+    }
   }
 
   // Clean up temp directory
