@@ -67,20 +67,20 @@ function getProjectImages() {
 const projectImages = getProjectImages();
 ---
 <LightGallery
-layout={{
-  imgs:
-    projectImages.map(image => ({
-      src: image.src,         // Full-res from R2 for modal
-      srcThumb: image.srcThumb,  // Optimized local thumbnail for grid
-      subHtml: image.subHtml
-    })),
-  adaptive: {
-    zoom: 200,
-  }
-
-}}
-options={{
-  thumbnail: true,
-  download: false,
-}}
-/>
+  class="masonry-grid"
+  options={{
+    thumbnail: true,
+    download: false,
+    selector: '.masonry-item',
+  }}
+>
+  {projectImages.map(image => (
+    <a
+      class="masonry-item"
+      href={image.src}
+      data-sub-html={image.subHtml}
+    >
+      <img src={image.srcThumb} alt="" loading="lazy" />
+    </a>
+  ))}
+</LightGallery>
