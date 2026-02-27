@@ -91,16 +91,18 @@ async function generateThumbnails() {
     try {
       const meta = await sharp(inputPath).metadata();
       const isLandscape = meta.width > meta.height;
-      await sharp(inputPath)
+      const thumbInfo = await sharp(inputPath)
         .resize(isLandscape ? null : THUMB_MIN_DIM, isLandscape ? THUMB_MIN_DIM : null)
         .webp({ quality: QUALITY })
         .toFile(outputPath);
 
       // Extract EXIF metadata
       const exif = await extractExif(inputPath);
-      if (exif) {
-        photoMetadata[file] = exif;
-      }
+      photoMetadata[file] = {
+        ...(exif || {}),
+        thumbWidth: thumbInfo.width,
+        thumbHeight: thumbInfo.height,
+      };
 
       uploadToR2(inputPath, `photography/${file}`);
       uploadToR2(outputPath, `photography/thumbs/${outputFilename}`);

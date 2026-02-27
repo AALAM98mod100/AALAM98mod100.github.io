@@ -54,12 +54,15 @@ function buildSubHtml(filename: string): string {
 function getProjectImages() {
     return imageFilenames.map(filename => {
         const filenameWithoutExt = filename.replace('.jpg', '');
+        const meta = (photoMetadata as Record<string, any>)[filename];
         return {
             // Full-resolution R2 URL for lightbox modal
             src: `${R2_BASE_URL}/photography/${filename}`,
             // Optimized thumbnail from R2 CDN
             srcThumb: `${R2_BASE_URL}/photography/thumbs/${filenameWithoutExt}.webp`,
-            subHtml: buildSubHtml(filename)
+            subHtml: buildSubHtml(filename),
+            thumbWidth: meta?.thumbWidth,
+            thumbHeight: meta?.thumbHeight,
         };
     });
 }
@@ -71,6 +74,7 @@ const projectImages = getProjectImages();
   options={{
     thumbnail: true,
     download: false,
+    fullScreen: true,
     selector: '.masonry-item',
   }}
 >
@@ -80,7 +84,7 @@ const projectImages = getProjectImages();
       href={image.src}
       data-sub-html={image.subHtml}
     >
-      <img src={image.srcThumb} alt="" loading="lazy" />
+      <img src={image.srcThumb} alt="" loading="lazy" width={image.thumbWidth} height={image.thumbHeight} />
     </a>
   ))}
 </LightGallery>
