@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const links = [
+  { label: "Instagram", handle: "@ammar.alam", url: "https://www.instagram.com/ammar.alam/" },
+  { label: "Flickr", handle: "/photos/a-alam", url: "https://www.flickr.com/photos/a-alam/" },
+  { label: "GitHub", handle: "AALAM98mod100", url: "https://github.com/AALAM98mod100" },
+  { label: "LinkedIn", handle: "ammaralam", url: "https://linkedin.com/in/ammaralam" },
+];
+---
+
+<Layout title="Links">
+  <div class="links-page">
+    <nav class="transparent links-nav">
+      <div class="linkbox">
+        <a class="title" href="/">Home</a>
+        <a class="title" href="/photography/projects">Projects</a>
+        <div class="spacer"></div>
+        <a class="title" href="/about">About</a>
+        <a class="title active" href="/photography/links">Links</a>
+      </div>
+    </nav>
+
+    <main class="links-main">
+      <div class="links-intro">
+        <h1>Ammar Alam</h1>
+        <p>find me around the web</p>
+      </div>
+
+      <div class="links-list">
+        {links.map(link => (
+          <a class="link-item" href={link.url} target="_blank" rel="noopener noreferrer">
+            <span class="link-label">{link.label}</span>
+            <span class="link-handle">{link.handle}</span>
+            <span class="link-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </main>
+
+    <footer class="links-footer">
+      <p>© 2026 Ammar Alam</p>
+    </footer>
+  </div>
+</Layout>
