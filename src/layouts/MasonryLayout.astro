@@ -1,90 +1,78 @@
 ---
-import { LightGallery } from 'astro-lightgallery';
-import photoMetadata from '../data/photo-metadata.json';
+// Explicit CSS import — replaces what the <LightGallery> component previously provided.
+// Must stay here (not in src/styles/index.js) to scope it to photography pages only.
+import "lightgallery/css/lightgallery-bundle.css";
+---
 
-// R2 CDN base URL
-const R2_BASE_URL = 'https://cdn.ammaralam.me';
+<div id="gallery-container" class="masonry-grid">
+  <p class="gallery-loading">Loading...</p>
+</div>
 
-// List of photography images hosted on R2
-const imageFilenames = [
-    '_DSF0436.jpg',
-    '_DSF0449.jpg',
-    '_DSF0451.jpg',
-    '_DSF0466.jpg',
-    '_DSF0686.jpg',
-    '_DSF0788 1.jpg',
-    '_DSF3075.jpg',
-    '_DSF3114.jpg',
-    '_DSF3126.jpg',
-    '_DSF3143.jpg',
-    '_DSF3171.jpg',
-    '_DSF3225.jpg',
-    '_DSF3381.jpg',
-    '_DSF3605.jpg',
-    '_DSF3622.jpg',
-    '_DSF3645 1.jpg',
-    '_DSF3836.jpg',
-    '_DSF4509.jpg',
-    '_DSF4618.jpg',
-    '_DSF4676.jpg',
-    '_DSF4963 1.jpg',
-    'akbarpura-leaf.jpg',
-    'light_beam.jpg'
-];
+<script>
+  import { createLightGallery } from 'astro-lightgallery';
 
-function buildSubHtml(filename: string): string {
+  const R2_BASE_URL = 'https://cdn.ammaralam.me';
+  const MANIFEST_URL = `${R2_BASE_URL}/photography/manifest.json`;
+  const GALLERY_ID = 'gallery-container';
+
+  function escapeHtml(str: string): string {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function buildSubHtml(image: any): string {
     const credit = `<h4>Photo by - <a href='https://ammaralam.me'>Ammar Alam</a></h4>`;
-    const meta = (photoMetadata as Record<string, any>)[filename];
-    if (!meta) return credit;
-
     const parts: string[] = [];
-    if (meta.camera) parts.push(meta.camera);
-    if (meta.lens) parts.push(meta.lens);
+    if (image.camera) parts.push(escapeHtml(String(image.camera)));
+    if (image.lens) parts.push(escapeHtml(String(image.lens)));
     const settings: string[] = [];
-    if (meta.focalLength) settings.push(`${meta.focalLength}mm`);
-    if (meta.aperture) settings.push(`f/${meta.aperture}`);
-    if (meta.shutterSpeed) settings.push(meta.shutterSpeed);
-    if (meta.iso) settings.push(`ISO ${meta.iso}`);
-    if (settings.length) parts.push(settings.join(' · '));
-
+    if (image.focalLength) settings.push(`${escapeHtml(String(image.focalLength))}mm`);
+    if (image.aperture) settings.push(`f/${escapeHtml(String(image.aperture))}`);
+    if (image.shutterSpeed) settings.push(escapeHtml(String(image.shutterSpeed)));
+    if (image.iso) settings.push(`ISO ${escapeHtml(String(image.iso))}`);
+    if (settings.length) parts.push(settings.join(' \u00b7 '));
     if (!parts.length) return credit;
     return `${credit}<p class="lg-exif-info">${parts.join('<span class="lg-exif-sep"> | </span>')}</p>`;
-}
+  }
 
-function getProjectImages() {
-    return imageFilenames.map(filename => {
-        const filenameWithoutExt = filename.replace('.jpg', '');
-        const meta = (photoMetadata as Record<string, any>)[filename];
-        return {
-            // Full-resolution R2 URL for lightbox modal
-            src: `${R2_BASE_URL}/photography/${filename}`,
-            // Optimized thumbnail from R2 CDN
-            srcThumb: `${R2_BASE_URL}/photography/thumbs/${filenameWithoutExt}.webp`,
-            subHtml: buildSubHtml(filename),
-            thumbWidth: meta?.thumbWidth,
-            thumbHeight: meta?.thumbHeight,
-        };
-    });
-}
+  async function loadGallery() {
+    const container = document.getElementById(GALLERY_ID)!;
+    try {
+      const response = await fetch(MANIFEST_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const manifest = await response.json();
 
-const projectImages = getProjectImages();
----
-<LightGallery
-  class="masonry-grid"
-  options={{
-    thumbnail: true,
-    download: false,
-    fullScreen: true,
-    selector: '.masonry-item',
-  }}
->
-  {projectImages.map(image => (
-    <a
-      class="masonry-item"
-      href={image.src}
-      data-sub-html={image.subHtml}
-    >
-      <img src={image.srcThumb} alt="" loading="lazy" width={image.thumbWidth} height={image.thumbHeight} />
-    </a>
-  ))}
-</LightGallery>
+      if (!manifest.images?.length) {
+        container.innerHTML = '<p>No photos yet.</p>';
+        return;
+      }
+
+      container.innerHTML = manifest.images.map((image: any) => {
+        const stem = image.filename.replace(/\.[^.]+$/, '');
+        const src = `${R2_BASE_URL}/photography/${image.filename}`;
+        const srcThumb = `${R2_BASE_URL}/photography/thumbs/${stem}.webp`;
+        // buildSubHtml escapes EXIF values; also escape the whole string for the attribute.
+        const subHtml = buildSubHtml(image).replace(/"/g, '&quot;');
+        return `<a class="masonry-item" href="${src}" data-sub-html="${subHtml}">` +
+          `<img src="${srcThumb}" alt="" loading="lazy" width="${image.thumbWidth}" height="${image.thumbHeight}" />` +
+          `</a>`;
+      }).join('');
+
+      await createLightGallery(GALLERY_ID, {
+        thumbnail: true,
+        download: false,
+        fullScreen: true,
+        selector: '.masonry-item',
+      }, []);
+    } catch (error) {
+      console.error('Failed to load gallery:', error);
+      container.innerHTML = '<p>Failed to load gallery.</p>';
+    }
+  }
+
+  loadGallery();
+</script>

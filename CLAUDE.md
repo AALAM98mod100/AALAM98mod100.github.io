@@ -9,7 +9,10 @@ Personal website/blog for Ammar Alam, built with **Astro 5** and deployed to Git
 - `npm run dev` — Local dev server at localhost:4321
 - `npm run build` — Production build to `./dist/`
 - `npm run preview` — Preview production build locally
-- `npm run generate-thumbs` — Generate WebP thumbnails and upload to R2 (requires `wrangler` auth)
+- `npm run upload-photo --file=<filename>` — Upload JPEG to R2 and immediately trigger the processing workflow (requires `wrangler` auth + `gh` CLI auth)
+- `npm run process-photos` — Run the photo processing pipeline locally (requires R2 env vars)
+- `npm run seed-manifest` — One-time migration: seeds manifest.json on R2 from existing photo-metadata.json (requires `wrangler` auth)
+- `npm run generate-thumbs` — DEPRECATED. Use `upload-photo` instead.
 
 ## Architecture
 
@@ -77,18 +80,40 @@ categories: ["technology"]
 
 - All images hosted on Cloudflare R2 (bucket: `ammaralam-me`) at `https://cdn.ammaralam.me/photography/`
 - Full-resolution originals served in LightGallery modal on click
-- Optimized 800px WebP thumbnails served in the gallery grid from `photography/thumbs/`
+- Optimized WebP thumbnails served in the gallery grid from `photography/thumbs/`
 - Hero background uses an optimized 1920px WebP at `photography/light_beam-optimized.webp`
-- `MasonryLayout.astro` uses `srcThumb` (not `thumb`) for the astro-lightgallery component
-- Image filenames are listed in the `imageFilenames` array in `src/layouts/MasonryLayout.astro`
+- Image registry is `photography/manifest.json` on R2 (fetched client-side by `MasonryLayout.astro`)
+- `src/data/photo-metadata.json` is deleted — manifest.json on R2 is the single source of truth
 
 ### Adding new photos
 
-Images are **never committed to the repo** — `public/images/` is gitignored. All photography is served from Cloudflare R2 CDN.
+Images are **never committed to the repo**. All photography is served from Cloudflare R2 CDN. No code edits are required to add photos.
 
-1. Place original JPEGs in `public/images/`
-2. Run `npm run generate-thumbs` — generates 800px WebP thumbnails and uploads both originals + thumbnails to R2 (requires `wrangler` auth)
-3. Add filenames to the `imageFilenames` array in `src/layouts/MasonryLayout.astro`
+**Quick (immediate):**
+```
+npm run upload-photo --file=my-photo.jpg
+```
+Uploads the JPEG to R2 and immediately triggers the GitHub Actions processing workflow. The image appears in the gallery after the workflow completes (~2 min).
+
+**Batch (automated):**
+1. Upload JPEG(s) to R2 directly via `wrangler r2 object put ammaralam-me/photography/<filename> --file=<filename>` or the Cloudflare Dashboard
+2. The daily GitHub Actions workflow (runs at 2am UTC) will detect and process new images automatically
+
+**How processing works (`scripts/process-new-photos.js`):**
+- Lists R2 `photography/` prefix, compares against `manifest.json`
+- Downloads new JPEGs, extracts EXIF, generates WebP thumbnails
+- Uploads thumbnails to `photography/thumbs/`
+- Updates `photography/manifest.json` on R2
+
+**Required GitHub Secrets** (set once in repo Settings > Secrets):
+- `CLOUDFLARE_ACCOUNT_ID`
+- `R2_ACCESS_KEY_ID` (R2-specific API token, not global API key)
+- `R2_SECRET_ACCESS_KEY`
+
+**R2 CORS** must be configured on the `ammaralam-me` bucket to allow `fetch()` from `www.ammaralam.me`:
+```
+wrangler r2 bucket cors put ammaralam-me --rules='[{"AllowedOrigins":["https://www.ammaralam.me","https://ammaralam.me","http://localhost:4321"],"AllowedMethods":["GET"],"AllowedHeaders":["*"]}]'
+```
 
 ## Configuration
 

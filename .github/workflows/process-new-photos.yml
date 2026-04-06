@@ -1,0 +1,30 @@
+name: Process New Photos
+
+on:
+  # Runs daily at 2am UTC — ~30 min/month of Actions usage.
+  # For immediate processing after upload, run: gh workflow run process-new-photos.yml
+  # Or use: npm run upload-photo --file=my-photo.jpg (chains wrangler upload + this trigger)
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Process new photos
+        run: node scripts/process-new-photos.js
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ammaralam-me

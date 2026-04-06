@@ -4,17 +4,21 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "generate-thumbs": "node scripts/generate-thumbnails.js",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-thumbs": "node scripts/generate-thumbnails.js",
+    "process-photos": "node scripts/process-new-photos.js",
+    "upload-photo": "wrangler r2 object put ammaralam-me/photography/$npm_config_file --file=$npm_config_file && gh workflow run process-new-photos.yml",
+    "seed-manifest": "node scripts/seed-manifest.js"
   },
   "dependencies": {
     "astro": "^5.4.2",
     "astro-lightgallery": "^2.0.1",
-    "exif-reader": "^2.0.3"
+    "exif-reader": "^2.0.3",
+    "lightgallery": "^2.9.0-beta.1",
+    "sharp": "^0.34.5",
+    "@aws-sdk/client-s3": "^3.0.0"
   },
-  "devDependencies": {
-    "sharp": "^0.34.5"
-  }
+  "devDependencies": {}
 }

@@ -1,3 +1,5 @@
+// DEPRECATED: Use scripts/process-new-photos.js and the GitHub Actions workflow instead.
+// See CLAUDE.md "Adding new photos" for the new workflow.
 import sharp from 'sharp';
 import exifReader from 'exif-reader';
 import fs from 'fs/promises';
