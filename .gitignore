@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # photography originals (hosted on R2 CDN)
 public/images/
+
+# AI
+.omc/
