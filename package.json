@@ -9,7 +9,7 @@
     "astro": "astro",
     "generate-thumbs": "node scripts/generate-thumbnails.js",
     "process-photos": "node scripts/process-new-photos.js",
-    "upload-photo": "wrangler r2 object put ammaralam-me/photography/$npm_config_file --file=$npm_config_file && gh workflow run process-new-photos.yml",
+    "upload-photo": "node scripts/upload-photo.js",
     "seed-manifest": "node scripts/seed-manifest.js"
   },
   "dependencies": {
