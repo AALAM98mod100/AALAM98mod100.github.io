@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: '0 2 * * *'
   workflow_dispatch:
+    inputs:
+      force_display_reprocess:
+        description: 'Re-generate all display/ JPEGs even if they already exist'
+        required: false
+        default: 'false'
 
 jobs:
   process:
@@ -28,3 +33,4 @@ jobs:
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET_NAME: ammaralam-me
+          FORCE_DISPLAY_REPROCESS: ${{ github.event.inputs.force_display_reprocess }}
