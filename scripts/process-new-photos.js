@@ -186,9 +186,10 @@ async function processImage(filename, batchIndex = 0) {
 async function main() {
   console.log('CDN-as-CMS: Processing new photos...\n');
 
-  const [r2Filenames, manifest] = await Promise.all([
+  const [r2Filenames, manifest, displayRes] = await Promise.all([
     listGalleryFilenames(),
     getManifest(),
+    s3.send(new ListObjectsV2Command({ Bucket: bucket, Prefix: 'photography/display/', Delimiter: '/' })),
   ]);
 
   const manifestFilenames = new Set(manifest.images.map(img => img.filename));
@@ -199,12 +200,20 @@ async function main() {
     .map(img => img.filename)
     .filter(f => !r2FilenameSet.has(f));
 
+  const existingDisplayStems = new Set(
+    (displayRes.Contents || []).map(obj => path.parse(path.basename(obj.Key)).name)
+  );
+  const needsBackfill = manifest.images
+    .map(img => img.filename)
+    .filter(f => !existingDisplayStems.has(path.parse(f).name));
+
   console.log(`  R2 gallery images: ${r2Filenames.length}`);
   console.log(`  Manifest images:   ${manifest.images.length}`);
   console.log(`  New:               ${newFilenames.length}`);
-  console.log(`  Deleted:           ${deletedFilenames.length}\n`);
+  console.log(`  Deleted:           ${deletedFilenames.length}`);
+  console.log(`  Missing display:   ${needsBackfill.length}\n`);
 
-  if (newFilenames.length === 0 && deletedFilenames.length === 0) {
+  if (newFilenames.length === 0 && deletedFilenames.length === 0 && needsBackfill.length === 0) {
     console.log('No changes detected. Nothing to do.');
     process.exit(0);
   }
@@ -241,18 +250,6 @@ async function main() {
   console.log(`\n  manifest.json updated on R2 (${manifest.images.length} total images).`);
 
   // Backfill display JPEGs for any existing manifest images that pre-date this feature.
-  const displayRes = await s3.send(new ListObjectsV2Command({
-    Bucket: bucket,
-    Prefix: 'photography/display/',
-    Delimiter: '/',
-  }));
-  const existingDisplayStems = new Set(
-    (displayRes.Contents || []).map(obj => path.parse(path.basename(obj.Key)).name)
-  );
-  const needsBackfill = manifest.images
-    .map(img => img.filename)
-    .filter(f => !existingDisplayStems.has(path.parse(f).name));
-
   if (needsBackfill.length > 0) {
     console.log(`\n  Backfilling display JPEGs for ${needsBackfill.length} image(s)...`);
     for (const filename of needsBackfill) {
