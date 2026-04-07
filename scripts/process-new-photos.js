@@ -161,7 +161,6 @@ async function processImage(filename, batchIndex = 0) {
   // Upload orientation-corrected display JPEG — pixels rotated per EXIF, EXIF orientation tag stripped.
   // LightGallery serves this instead of the raw original so both filmstrip and modal are consistently oriented.
   const displayData = await sharp(buffer)
-    .rotate()
     .jpeg({ quality: 95 })
     .toBuffer();
   const displayKey = `photography/display/${filename}`;
@@ -203,9 +202,10 @@ async function main() {
   const existingDisplayStems = new Set(
     (displayRes.Contents || []).map(obj => path.parse(path.basename(obj.Key)).name)
   );
+  const forceDisplay = process.env.FORCE_DISPLAY_REPROCESS === 'true';
   const needsBackfill = manifest.images
     .map(img => img.filename)
-    .filter(f => !existingDisplayStems.has(path.parse(f).name));
+    .filter(f => forceDisplay || !existingDisplayStems.has(path.parse(f).name));
 
   console.log(`  R2 gallery images: ${r2Filenames.length}`);
   console.log(`  Manifest images:   ${manifest.images.length}`);
@@ -255,7 +255,7 @@ async function main() {
     for (const filename of needsBackfill) {
       try {
         const buf = await downloadFromR2(`photography/${filename}`);
-        const displayData = await sharp(buf).rotate().jpeg({ quality: 95 }).toBuffer();
+        const displayData = await sharp(buf).jpeg({ quality: 95 }).toBuffer();
         await s3.send(new PutObjectCommand({
           Bucket: bucket,
           Key: `photography/display/${filename}`,
