@@ -53,7 +53,7 @@ import "lightgallery/css/lightgallery-bundle.css";
 
       container.innerHTML = manifest.images.map((image: any) => {
         const stem = image.filename.replace(/\.[^.]+$/, '');
-        const src = `${R2_BASE_URL}/photography/${image.filename}`;
+        const src = `${R2_BASE_URL}/photography/display/${image.filename}`;
         const srcThumb = `${R2_BASE_URL}/photography/thumbs/${stem}.webp`;
         // buildSubHtml escapes EXIF values; also escape the whole string for the attribute.
         const subHtml = buildSubHtml(image).replace(/"/g, '&quot;');

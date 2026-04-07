@@ -158,6 +158,21 @@ async function processImage(filename, batchIndex = 0) {
   }));
   console.log(`    Thumbnail uploaded: ${thumbKey} (${thumbInfo.width}x${thumbInfo.height})`);
 
+  // Upload orientation-corrected display JPEG — pixels rotated per EXIF, EXIF orientation tag stripped.
+  // LightGallery serves this instead of the raw original so both filmstrip and modal are consistently oriented.
+  const displayData = await sharp(buffer)
+    .rotate()
+    .jpeg({ quality: 95 })
+    .toBuffer();
+  const displayKey = `photography/display/${filename}`;
+  await s3.send(new PutObjectCommand({
+    Bucket: bucket,
+    Key: displayKey,
+    Body: displayData,
+    ContentType: 'image/jpeg',
+  }));
+  console.log(`    Display JPEG uploaded: ${displayKey}`);
+
   return {
     filename,
     ...(exif || {}),
@@ -224,6 +239,38 @@ async function main() {
   // Write updated manifest back to R2
   await putManifest(manifest);
   console.log(`\n  manifest.json updated on R2 (${manifest.images.length} total images).`);
+
+  // Backfill display JPEGs for any existing manifest images that pre-date this feature.
+  const displayRes = await s3.send(new ListObjectsV2Command({
+    Bucket: bucket,
+    Prefix: 'photography/display/',
+    Delimiter: '/',
+  }));
+  const existingDisplayStems = new Set(
+    (displayRes.Contents || []).map(obj => path.parse(path.basename(obj.Key)).name)
+  );
+  const needsBackfill = manifest.images
+    .map(img => img.filename)
+    .filter(f => !existingDisplayStems.has(path.parse(f).name));
+
+  if (needsBackfill.length > 0) {
+    console.log(`\n  Backfilling display JPEGs for ${needsBackfill.length} image(s)...`);
+    for (const filename of needsBackfill) {
+      try {
+        const buf = await downloadFromR2(`photography/${filename}`);
+        const displayData = await sharp(buf).rotate().jpeg({ quality: 95 }).toBuffer();
+        await s3.send(new PutObjectCommand({
+          Bucket: bucket,
+          Key: `photography/display/${filename}`,
+          Body: displayData,
+          ContentType: 'image/jpeg',
+        }));
+        console.log(`    Backfilled: photography/display/${filename}`);
+      } catch (err) {
+        console.error(`  Failed to backfill ${filename}: ${err.message}`);
+      }
+    }
+  }
 
   if (failed.length > 0) {
     console.error(`\n  ${failed.length} image(s) failed processing: ${failed.join(', ')}`);
