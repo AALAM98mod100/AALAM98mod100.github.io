@@ -29,11 +29,8 @@ function renderCategories(categories: CategoryType[] | CategoryType) {
             <img src={post.frontmatter.image} alt={post.frontmatter.title} class="post-image" />
           )} */}
           <div class="post-details">
-            <h2>{post.frontmatter.title}</h2>
-            <div class="post-meta">
-              <span class="post-date">
-                {formatDate(post.frontmatter.pubDate)}
-              </span>
+            <div class="post-title-row">
+              <h2>{post.frontmatter.title}</h2>
               <div class="post-categories">
                 {renderCategories(post.frontmatter.categories).map(category => (
                   <span class="post-category">{category}</span>

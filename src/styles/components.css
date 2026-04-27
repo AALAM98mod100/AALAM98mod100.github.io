@@ -51,13 +51,16 @@
   color: var(--primary-color);
 }
   
-.post-meta {
+.post-title-row {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  color: var(--text-light);
-  font-size: 0.9rem;
+  gap: 1rem;
   margin-bottom: 1rem;
-  flex-wrap: wrap;
+}
+
+.post-title-row h2 {
+  margin: 0;
 }
   
 .post-date {
