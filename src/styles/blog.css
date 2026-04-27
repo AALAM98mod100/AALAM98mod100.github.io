@@ -17,6 +17,12 @@
   border-left: 4px solid #ffeeba;
 }
 
+[data-theme="dark"] .private-notice {
+  background-color: #3a2e00;
+  color: #f0c040;
+  border-left-color: #7a6200;
+}
+
 /* Blog Post Header */
 .blog-header {
   margin-bottom: 2rem;

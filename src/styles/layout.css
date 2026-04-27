@@ -35,6 +35,45 @@ nav.transparent {
   text-decoration: none;
   transition: var(--transition);
 }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: var(--secondary-color);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.theme-toggle:hover {
+  color: var(--primary-color);
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.theme-toggle {
+  gap: 0.4rem;
+}
+
+[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; }
+[data-theme="light"] .theme-toggle .icon-moon { opacity: 0.3; }
+[data-theme="dark"] .theme-toggle .icon-moon { opacity: 1; }
+[data-theme="dark"] .theme-toggle .icon-sun { opacity: 0.3; }
   
 .nav-links a:hover, .nav-links a.active {
   color: var(--primary-color);
