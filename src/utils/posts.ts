@@ -82,6 +82,34 @@ export function filterPostsByTopic<T extends { frontmatter: { topics: TopicType[
 }
 
 /**
+ * Summary of one topic that has at least one public post
+ */
+export interface TopicSummary {
+  slug: TopicType;
+  name: string;
+  count: number;
+}
+
+/**
+ * The topics that have at least one public post, in enum order.
+ * This is the single definition of "a topic that exists" — topic pages are
+ * generated from it, the topics index lists it, and post pages use it to
+ * decide whether a topic is linkable.
+ */
+export function getTopicsWithPosts<T extends { frontmatter: { topics: TopicType[] | TopicType; private?: boolean } }>(
+  posts: T[]
+): TopicSummary[] {
+  const publicPosts = filterPublicPosts(posts);
+  return Object.values(Topic)
+    .map(topic => ({
+      slug: topic,
+      name: TOPIC_NAMES[topic],
+      count: filterPostsByTopic(publicPosts, topic).length
+    }))
+    .filter(entry => entry.count > 0);
+}
+
+/**
  * Finds related posts for a given post.
  *
  * Candidates are public posts that share at least one topic. Tags rank within

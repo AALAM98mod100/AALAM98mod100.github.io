@@ -4,11 +4,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostList from '../../components/PostList.astro';
 import type { Frontmatter, TopicType } from '../../utils/posts';
 import {
-  Topic,
   TOPIC_NAMES,
   filterPublicPosts,
   filterPostsByTopic,
-  sortPostsByDate
+  sortPostsByDate,
+  getTopicsWithPosts
 } from '../../utils/posts';
 
 export async function getStaticPaths() {
@@ -17,17 +17,11 @@ export async function getStaticPaths() {
   );
   const publicPosts = filterPublicPosts(allPosts);
 
-  return Object.values(Topic)
-    .map(topic => ({
-      topic,
-      posts: sortPostsByDate(filterPostsByTopic(publicPosts, topic))
-    }))
-    // A topic with no public posts gets no page
-    .filter(entry => entry.posts.length > 0)
-    .map(entry => ({
-      params: { topic: entry.topic },
-      props: { topic: entry.topic, posts: entry.posts }
-    }));
+  // A topic gets a page only if it has at least one public post
+  return getTopicsWithPosts(allPosts).map(({ slug }) => ({
+    params: { topic: slug },
+    props: { topic: slug, posts: sortPostsByDate(filterPostsByTopic(publicPosts, slug)) }
+  }));
 }
 
 interface Props {

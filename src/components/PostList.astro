@@ -1,7 +1,7 @@
 ---
 import type { MarkdownInstance } from 'astro';
 import type { Frontmatter } from '../utils/posts';
-import { formatShortDate } from '../utils/date';
+import { formatShortDate, toISODate } from '../utils/date';
 
 interface Props {
   posts: MarkdownInstance<Frontmatter>[];
@@ -15,14 +15,6 @@ const {
   emptyMessage = "No posts available yet. Check back soon!",
   variant = 'default'
 } = Astro.props;
-
-function isoDate(value: string | Date): string {
-  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return value;
-  }
-  const date = new Date(value);
-  return isNaN(date.getTime()) ? '' : date.toISOString().slice(0, 10);
-}
 ---
 
 <div class:list={['posts-list', variant === 'compact' && 'posts-list--compact']}>
@@ -30,7 +22,7 @@ function isoDate(value: string | Date): string {
     posts.map((post) => (
       <a class="post-row" href={post.url}>
         <h2 class="post-row-title">{post.frontmatter.title}</h2>
-        <time class="post-row-date" datetime={isoDate(post.frontmatter.pubDate)}>
+        <time class="post-row-date" datetime={toISODate(post.frontmatter.pubDate)}>
           {formatShortDate(post.frontmatter.pubDate)}
         </time>
         {post.frontmatter.description && (

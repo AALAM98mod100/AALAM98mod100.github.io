@@ -42,6 +42,42 @@ export function formatShortDate(dateString: string | Date): string {
 }
 
 /**
+ * Formats a date as a bare ISO date, for example "2025-09-29"
+ * Used for the datetime attribute of a list row, where a date-only value fits
+ */
+export function toISODate(value: string | Date): string {
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return value;
+  }
+  const date = new Date(value);
+  return isNaN(date.getTime()) ? '' : date.toISOString().slice(0, 10);
+}
+
+/**
+ * Formats a date as an ISO timestamp, for example "2025-09-29T12:00:00Z"
+ * A bare YYYY-MM-DD is treated as noon UTC. Used for the datetime attribute
+ * of a post header, where a full timestamp fits.
+ * Returns an empty string on an invalid date, so the caller can omit the
+ * attribute instead of stamping the build time into the page.
+ */
+export function toISODateTime(value: string | Date): string {
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return `${value}T12:00:00Z`;
+  }
+
+  try {
+    if (value instanceof Date) {
+      return isNaN(value.getTime()) ? '' : value.toISOString();
+    }
+    const date = new Date(value);
+    return isNaN(date.getTime()) ? '' : date.toISOString();
+  } catch (e) {
+    console.error(`Error creating ISO string: ${value}`, e);
+    return '';
+  }
+}
+
+/**
  * Safely parses a date string or Date object to a Date object
  */
 export function parseDate(date: Date | string | undefined): Date | null {

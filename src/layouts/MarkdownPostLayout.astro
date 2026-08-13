@@ -1,5 +1,13 @@
 ---
 import BlogPost from './BlogPost.astro';
+import type { Frontmatter } from '../utils/posts';
+
+interface Props {
+  frontmatter: Frontmatter;
+  rawContent: () => string;
+  url?: string;
+}
+
 const { frontmatter, rawContent, url } = Astro.props;
 
 const wordCount = rawContent().split(/\s+/).filter(Boolean).length;
