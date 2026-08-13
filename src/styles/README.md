@@ -8,6 +8,7 @@ This directory contains the centralized CSS for the entire website. The goal is 
 - **layout.css**: Header, footer, navigation, and page layout styles
 - **components.css**: Styles for reusable components (cards, buttons, etc.)
 - **blog.css**: Styles specific to blog posts and content
+- **photography.css**: Photography page styling
 - **index.js**: Central import file that loads all CSS files
 
 ## CSS Variables
