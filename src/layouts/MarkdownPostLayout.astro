@@ -5,7 +5,7 @@ import type { Frontmatter } from '../utils/posts';
 interface Props {
   frontmatter: Frontmatter;
   rawContent: () => string;
-  url?: string;
+  url: string;
 }
 
 const { frontmatter, rawContent, url } = Astro.props;
