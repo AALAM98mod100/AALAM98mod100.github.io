@@ -3,7 +3,7 @@ layout: ../../layouts/MarkdownPostLayout.astro
 title: "A deep dive into recovering the camera response function using Paul Debevec's method"
 description: "Understanding the method for recovering camera response functions in computational photography"
 pubDate: 2023-10-12
-categories: ["technology"]
+topics: ["engineering"]
 image: "/assets/img/crf.png"
 tags: [article, computational-photography, software, hdr, hdri, crf, multi-part, series]
 private: true

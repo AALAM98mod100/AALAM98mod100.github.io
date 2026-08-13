@@ -1,23 +1,16 @@
 ---
 import type { MarkdownInstance } from 'astro';
-import type { Frontmatter, CategoryType } from '../utils/posts';
-import { formatDate } from '../utils/date';
+import type { Frontmatter } from '../utils/posts';
 
 interface Props {
   posts: MarkdownInstance<Frontmatter>[];
   emptyMessage?: string;
 }
 
-const { 
+const {
   posts,
-  emptyMessage = "No posts available yet. Check back soon!" 
+  emptyMessage = "No posts available yet. Check back soon!"
 } = Astro.props;
-
-// Helper function to render categories
-function renderCategories(categories: CategoryType[] | CategoryType) {
-  const categoryArray = Array.isArray(categories) ? categories : [categories];
-  return categoryArray;
-}
 ---
 
 <div class="posts-list">
@@ -25,23 +18,12 @@ function renderCategories(categories: CategoryType[] | CategoryType) {
     posts.map((post) => (
       <div class="post-card">
         <a href={post.url}>
-          {/* {post.frontmatter.image && (
-            <img src={post.frontmatter.image} alt={post.frontmatter.title} class="post-image" />
-          )} */}
           <div class="post-details">
             <div class="post-title-row">
               <h2>{post.frontmatter.title}</h2>
-              <div class="post-categories">
-                {renderCategories(post.frontmatter.categories).map(category => (
-                  <span class="post-category">{category}</span>
-                ))}
-              </div>
             </div>
             {post.frontmatter.description && (
               <p class="post-description">{post.frontmatter.description}</p>
-            )}
-            {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-              <div class="post-tags">{post.frontmatter.tags.map(t => `#${t}`).join('  ')}</div>
             )}
           </div>
         </a>
@@ -52,4 +34,4 @@ function renderCategories(categories: CategoryType[] | CategoryType) {
       <p>{emptyMessage}</p>
     </div>
   )}
-</div> 
+</div>

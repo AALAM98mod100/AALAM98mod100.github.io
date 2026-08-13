@@ -3,7 +3,7 @@ layout: ../../layouts/MarkdownPostLayout.astro
 title: "More than just The Brothers Karamazov"
 description: "A review of Fyodor Dostoevsky's masterpiece, The Brothers Karamazov"
 pubDate: 2023-03-26
-categories: ["books"]
+topics: ["books"]
 image: "/assets/img/karamazov.jpeg"
 ---
 

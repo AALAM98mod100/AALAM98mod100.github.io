@@ -1,5 +1,6 @@
 /**
  * Safely formats a date string or Date object to a readable format
+ * Dates are formatted in UTC so that a bare YYYY-MM-DD never shifts a day
  */
 export function formatDate(dateString: string | Date): string {
   try {
@@ -11,6 +12,28 @@ export function formatDate(dateString: string | Date): string {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
+      timeZone: 'UTC',
+    });
+  } catch (e) {
+    console.error(`Error formatting date: ${dateString}`, e);
+    return "Unknown date";
+  }
+}
+
+/**
+ * Formats a date as a short month and year, for example "Sep 2025"
+ * Used in post list rows, where a narrow right-hand column keeps titles wide
+ */
+export function formatShortDate(dateString: string | Date): string {
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return "Unknown date";
+    }
+    return date.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: 'short',
+      timeZone: 'UTC',
     });
   } catch (e) {
     console.error(`Error formatting date: ${dateString}`, e);

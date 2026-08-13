@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import type { CategoryType } from '../utils/posts';
+import type { TopicType } from '../utils/posts';
+import { getPostTopics } from '../utils/posts';
 import { formatDate, parseDate } from '../utils/date';
 
 interface Props {
@@ -8,7 +9,8 @@ interface Props {
   description?: string;
   pubDate: Date | string;
   updatedDate?: Date | string;
-  categories: CategoryType[] | CategoryType;
+  topics: TopicType[] | TopicType;
+  url?: string;
   private?: boolean;
   tags?: string[];
   readingTime?: number;
@@ -19,7 +21,8 @@ const {
   description,
   pubDate: pubDateRaw,
   updatedDate: updatedDateRaw,
-  categories,
+  topics,
+  url,
   private: isPrivate,
   tags,
   readingTime
@@ -49,8 +52,7 @@ function getISOString(dateInput: string | Date): string {
 const pubDateISO = getISOString(pubDateRaw);
 const updatedDateISO = updatedDateRaw ? getISOString(updatedDateRaw) : undefined;
 
-// Process categories
-const categoryArray = Array.isArray(categories) ? categories : [categories];
+const topicList = getPostTopics({ topics });
 ---
 
 <BaseLayout title={title} description={description}>
@@ -89,19 +91,7 @@ const categoryArray = Array.isArray(categories) ? categories : [categories];
           </>
         )}
 
-        <span class="blog-meta-separator">&middot;</span>
-        <div class="blog-categories">
-          {categoryArray.map(category => (
-            <a href={`/${category}/`} class="post-category">{category}</a>
-          ))}
-        </div>
       </div>
-      {tags && tags.length > 0 && (
-        <div class="blog-tags">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-          {tags.map(t => `#${t}`).join(', ')}
-        </div>
-      )}
     </header>
 
     <div class="blog-content">

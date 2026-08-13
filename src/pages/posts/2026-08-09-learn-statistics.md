@@ -4,7 +4,7 @@ title: "Everyone should learn statistics"
 description: "Your whole life is governed by the understanding, or misunderstanding of statistics"
 pubDate: 2025-09-29
 tags: ["statistics", "learning"]
-categories: ["technology"]
+topics: ["engineering"]
 private: true
 ---
 ## AI disclaimer (snippet of text that is copied in all new posts)

@@ -3,7 +3,7 @@ layout: ../../layouts/MarkdownPostLayout.astro
 title: "Shini Bahar"
 description: "Reflections on a beautiful song"
 pubDate: 2022-09-05
-categories: ["life"]
+topics: ["reflections"]
 image: "/assets/img/shini-bahar.png"
 ---
 

@@ -1,6 +1,6 @@
 ---
 import BlogPost from './BlogPost.astro';
-const { frontmatter, rawContent } = Astro.props;
+const { frontmatter, rawContent, url } = Astro.props;
 
 const wordCount = rawContent().split(/\s+/).filter(Boolean).length;
 const readingTime = Math.ceil(wordCount / 200);
@@ -11,10 +11,11 @@ const readingTime = Math.ceil(wordCount / 200);
   description={frontmatter.description}
   pubDate={frontmatter.pubDate}
   updatedDate={frontmatter.updatedDate}
-  categories={frontmatter.categories}
+  topics={frontmatter.topics}
   private={frontmatter.private}
   tags={frontmatter.tags}
   readingTime={readingTime}
+  url={url}
 >
   <slot />
 </BlogPost>
