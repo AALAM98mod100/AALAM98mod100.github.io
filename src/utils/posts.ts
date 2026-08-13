@@ -25,6 +25,17 @@ export const TOPIC_NAMES: Record<TopicType, string> = {
 };
 
 /**
+ * Search-engine description for each topic page.
+ * These never appear on the page. They only fill the <meta name="description">
+ * tag, so that the topic pages do not share one generic snippet in results.
+ */
+export const TOPIC_SEO_DESCRIPTIONS: Record<TopicType, string> = {
+  [Topic.BOOKS]: 'Reviews of the novels I read, and the arguments they make.',
+  [Topic.ENGINEERING]: 'Notes on backend architecture, Django, and reading data honestly.',
+  [Topic.REFLECTIONS]: 'Essays on learning, music, and the way we see.'
+};
+
+/**
  * Post frontmatter type definition
  */
 export interface Frontmatter {

@@ -5,6 +5,7 @@ import PostList from '../../components/PostList.astro';
 import type { Frontmatter, TopicType } from '../../utils/posts';
 import {
   TOPIC_NAMES,
+  TOPIC_SEO_DESCRIPTIONS,
   filterPublicPosts,
   filterPostsByTopic,
   sortPostsByDate,
@@ -33,7 +34,7 @@ const { topic, posts } = Astro.props;
 const name = TOPIC_NAMES[topic];
 ---
 
-<BaseLayout title={name}>
+<BaseLayout title={name} description={TOPIC_SEO_DESCRIPTIONS[topic]}>
   <div class="page-content">
     <h1>{name}</h1>
 
