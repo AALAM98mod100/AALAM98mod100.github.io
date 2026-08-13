@@ -116,6 +116,40 @@
   line-height: 1.6;
 }
 
+/* Topic Pages */
+.topic-index-list {
+  margin-top: 2rem;
+}
+
+.topic-index-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 20px;
+  align-items: baseline;
+  padding: 20px 0 18px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.topic-index-item a {
+  font-size: 21px;
+  line-height: 1.3;
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.topic-index-count {
+  font-size: 14px;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 30px;
+  font-size: 16px;
+  color: var(--accent-color);
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .post-row {

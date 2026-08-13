@@ -1,0 +1,43 @@
+---
+import type { MarkdownInstance } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Frontmatter } from '../../utils/posts';
+import {
+  Topic,
+  TOPIC_NAMES,
+  filterPublicPosts,
+  filterPostsByTopic
+} from '../../utils/posts';
+
+const allPosts = Object.values(
+  import.meta.glob<MarkdownInstance<Frontmatter>>('../posts/*.md', { eager: true })
+);
+const publicPosts = filterPublicPosts(allPosts);
+
+const topics = Object.values(Topic)
+  .map(topic => ({
+    slug: topic,
+    name: TOPIC_NAMES[topic],
+    count: filterPostsByTopic(publicPosts, topic).length
+  }))
+  .filter(entry => entry.count > 0);
+---
+
+<BaseLayout title="Topics">
+  <div class="page-content">
+    <h1>Topics</h1>
+
+    <div class="topic-index-list">
+      {topics.map(entry => (
+        <div class="topic-index-item">
+          <a href={`/topics/${entry.slug}/`}>{entry.name}</a>
+          <span class="topic-index-count">
+            {entry.count} {entry.count === 1 ? 'post' : 'posts'}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    <a class="back-link" href="/">All posts</a>
+  </div>
+</BaseLayout>

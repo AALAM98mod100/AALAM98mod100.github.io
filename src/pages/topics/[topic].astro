@@ -1,0 +1,50 @@
+---
+import type { MarkdownInstance } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import type { Frontmatter, TopicType } from '../../utils/posts';
+import {
+  Topic,
+  TOPIC_NAMES,
+  filterPublicPosts,
+  filterPostsByTopic,
+  sortPostsByDate
+} from '../../utils/posts';
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob<MarkdownInstance<Frontmatter>>('../posts/*.md', { eager: true })
+  );
+  const publicPosts = filterPublicPosts(allPosts);
+
+  return Object.values(Topic)
+    .map(topic => ({
+      topic,
+      posts: sortPostsByDate(filterPostsByTopic(publicPosts, topic))
+    }))
+    // A topic with no public posts gets no page
+    .filter(entry => entry.posts.length > 0)
+    .map(entry => ({
+      params: { topic: entry.topic },
+      props: { topic: entry.topic, posts: entry.posts }
+    }));
+}
+
+interface Props {
+  topic: TopicType;
+  posts: MarkdownInstance<Frontmatter>[];
+}
+
+const { topic, posts } = Astro.props;
+const name = TOPIC_NAMES[topic];
+---
+
+<BaseLayout title={name}>
+  <div class="page-content">
+    <h1>{name}</h1>
+
+    <PostList posts={posts} />
+
+    <a class="back-link" href="/">All posts</a>
+  </div>
+</BaseLayout>
