@@ -485,7 +485,7 @@ git add src/utils/posts.ts src/utils/date.ts src/components/PostList.astro \
 git add -A src/pages/books src/pages/technology src/pages/life
 git commit -m "refactor: replace post categories with topics
 
-Rename the Category enum to Topic with five values, migrate all eight
+Rename the Category enum to Topic with three values, migrate all eight
 posts, and remove the category pages, nav links, badges and rendered
 tag lines. Tags stay in frontmatter as a ranking signal only."
 ```
