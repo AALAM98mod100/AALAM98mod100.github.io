@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Personal website/blog for Ammar Alam, built with **Astro 5** and deployed to GitHub Pages at [www.ammaralam.me](https://www.ammaralam.me).
+Personal website/blog for Ammar Alam, built with **Astro 7** and deployed to GitHub Pages at [www.ammaralam.me](https://www.ammaralam.me).
 
 ## Commands
 

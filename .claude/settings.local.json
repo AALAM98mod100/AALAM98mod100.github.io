@@ -15,7 +15,14 @@
       "Bash(node:*)",
       "Bash(git -C /Users/ammaralam/AALAM98mod100.github.io status --short)",
       "Bash(npx sharp-cli:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(open:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(npm test:*)",
+      "Bash(ls:*)",
+      "Bash(agent-browser open:*)",
+      "Bash(agent-browser:*)"
     ]
   }
 }

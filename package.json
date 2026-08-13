@@ -13,7 +13,7 @@
     "seed-manifest": "node scripts/seed-manifest.js"
   },
   "dependencies": {
-    "astro": "^5.4.2",
+    "astro": "^7.0.6",
     "astro-lightgallery": "^2.0.1",
     "exif-reader": "^2.0.3",
     "lightgallery": "^2.9.0-beta.1",

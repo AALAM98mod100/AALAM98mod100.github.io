@@ -93,9 +93,6 @@ nav.transparent {
   100% { background-position: 200% 50%; }
 }
 
-
-}
-
 /* Main Content Area */
 main {
   max-width: var(--container-width);
