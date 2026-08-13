@@ -32,9 +32,11 @@ Layout.astro → BaseLayout.astro → Pages / BlogPost.astro
 ### Blog posts
 
 - All posts live in `src/pages/posts/*.md`
-- Categories defined in `src/utils/posts.ts` as the `Category` enum: `books`, `technology`, `life`, `photography`
-- Frontmatter requires `title`, `pubDate` (YYYY-MM-DD), and `categories` (string or array)
-- Optional frontmatter: `description`, `image`, `private`
+- Topics defined in `src/utils/posts.ts` as the `Topic` enum: `books`, `engineering`, `reflections`
+- Title Case display names live in `TOPIC_NAMES` in the same file
+- Frontmatter requires `title`, `pubDate` (YYYY-MM-DD), and `topics` (string or array)
+- Optional frontmatter: `description`, `image`, `private`, `tags`
+- `tags` is free-form and is never rendered. It only ranks related posts within a topic.
 - Posts marked `private: true` are hidden from listings but accessible via direct URL
 - `import.meta.glob()` must be called in `.astro` files directly (cannot be abstracted to utility)
 
@@ -52,7 +54,7 @@ Do not use inline styles. Use CSS variables from `global.css` for theming consis
 
 ### Key utilities
 
-- `src/utils/posts.ts` — `filterPublicPosts()`, `sortPostsByDate()`, `filterPostsByCategory()`, `Frontmatter` interface
+- `src/utils/posts.ts` — `filterPublicPosts()`, `sortPostsByDate()`, `filterPostsByTopic()`, `getPostTopics()`, `getRelatedPosts()`, `TOPIC_NAMES`, `Frontmatter` interface
 - `src/utils/date.ts` — `parseDate()` and date formatting
 
 ## Adding content
@@ -66,15 +68,22 @@ Create `src/pages/posts/my-post.md` with frontmatter:
 layout: ../../layouts/MarkdownPostLayout.astro
 title: "Post Title"
 pubDate: 2025-01-15
-categories: ["technology"]
+topics: ["engineering"]
 ---
 ```
 
-### New category
+### New topic
 
-1. Add to `Category` enum in `src/utils/posts.ts`
-2. Create `src/pages/newcategory/index.astro`
-3. Update `src/components/Navigation.astro`
+A new topic earns its existence at **two** posts. Until then, put the post in the
+nearest existing topic. Never delete a topic — one that stops growing just stays
+small. If two topics must merge, add a redirect in `astro.config.mjs`.
+
+1. Add the value to the `Topic` enum in `src/utils/posts.ts`
+2. Add its Title Case display name to `TOPIC_NAMES`
+3. Set `topics:` on the posts
+
+The page at `/topics/<slug>/` generates itself, but only once the topic has at
+least one public post.
 
 ### Photography images
 

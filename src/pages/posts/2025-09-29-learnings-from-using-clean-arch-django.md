@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
 title: "Learnings from using clean architecture in Django"
-description: "Learnings from using clean architecture in Django"
+description: "Three years of Django taught me that the best architecture advice ends in 'it depends'."
 pubDate: 2025-09-29
 tags: ["python","django", "clean-architecture","architecture", "backend"]
 topics: ["engineering"]
