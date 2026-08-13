@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  html, body { margin: 0; padding: 0; background: #f2efe9; }
+  * { box-sizing: border-box; }
+  a { color: #1a1a19; text-decoration: none; }
+  a:hover { color: #1a1a19; text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</helmet>
+
+<div style="background: #f2efe9; color: #1a1a19; font-family: ui-monospace, 'SF Mono', Menlo, monospace; padding: 60px 48px 110px; display: flex; justify-content: center;">
+  <div style="width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 52px;">
+
+    <div style="display: flex; flex-direction: column; gap: 13px;">
+      <div style="font-size: 11px; letter-spacing: 0.08em; color: #6f6b64;">AMMARALAM.ME · IMPLEMENTATION HANDOFF</div>
+      <h1 style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 36px; font-weight: 400; line-height: 1.18; letter-spacing: -0.015em;">Categories out, topics behind the articles</h1>
+      <p style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 16.5px; line-height: 1.65; color: #45423d; max-width: 68ch; text-wrap: pretty;">The home page becomes a plain chronological list. Five broad topics replace the four-value <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 14px;">Category</span> enum, each with a generated page, reached from the end of an article rather than from a filter or the nav. No client-side JavaScript in any of it.</p>
+      <p style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 16.5px; line-height: 1.65; color: #45423d; max-width: 68ch; text-wrap: pretty;">Frames below are drawn in Charter at your real light-theme tokens, with your five public posts. They are references, not markup to lift.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; border-top: 1px solid #ded9d0; padding-top: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <div style="font-size: 10.5px; letter-spacing: 0.08em; color: #6f6b64;">WHAT CHANGES</div>
+        <div style="font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 15.5px; line-height: 1.75; color: #45423d;">
+          <div>Category badges leave the post rows</div>
+          <div>Books, Technology, Life leave the nav</div>
+          <div>Those three index pages are deleted</div>
+          <div>The <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13px;">#tag, #tag</span> lines stop rendering</div>
+          <div>Five <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13px;">/topics/</span> pages are generated</div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <div style="font-size: 10.5px; letter-spacing: 0.08em; color: #6f6b64;">WHAT STAYS</div>
+        <div style="font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 15.5px; line-height: 1.75; color: #45423d;">
+          <div>Charter, 800px column, both themes</div>
+          <div>Resume and Photography in the nav</div>
+          <div>Every public post on the home page</div>
+          <div>The <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13px;">tags</span> array, now unrendered</div>
+          <div>Every existing CSS variable, unchanged</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 28px;">
+      <h2 style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 24px; font-weight: 400; border-top: 1px solid #ded9d0; padding-top: 20px;">The pages</h2>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 11px; letter-spacing: 0.06em; color: #6f6b64;">01 · HOME — index.astro + PostList.astro</div>
+        <div style="width: 800px; background: #ffffff; border: 1px solid #eaeaea; padding: 40px 44px 36px; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; color: #333333; line-height: 1.6;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 30px;">
+            <span style="font-size: 19px; color: #333333;">Ammar Alam</span>
+            <div style="display: flex; gap: 18px; font-size: 15px; color: #0077cc;"><span>Resume</span><span>Photography</span></div>
+          </div>
+          <h3 style="margin: 0 0 6px; font-size: 34px; font-weight: 400; line-height: 1.2;">Hi, I'm Ammar</h3>
+          <p style="margin: 0 0 22px; font-size: 17px; line-height: 1.6; color: #555555;">Or rather, his digital twin.<br />Building the future of EdTech.<br />And sometimes write about artsy stuff.</p>
+          <div style="border-top: 1px solid #eaeaea;"></div>
+          <sc-for list="{{ posts }}" as="p" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; align-items: baseline; border-bottom: 1px solid #eaeaea; padding: 20px 0 18px;">
+              <span style="font-size: 21px; line-height: 1.3; color: #333333;">{{ p.title }}</span>
+              <span style="font-size: 14px; color: #6f6f6f; white-space: nowrap;">{{ p.short }}</span>
+              <span style="grid-column: 1 / -1; font-size: 16px; line-height: 1.55; color: #555555; max-width: 62ch;">{{ p.desc }}</span>
+              <sc-if value="{{ p.dupe }}" hint-placeholder-val="{{ false }}">
+                <span style="grid-column: 1 / -1; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; line-height: 1.5; color: #b23c17; padding-top: 3px;">↑ real frontmatter — description repeats the title. Worth rewriting: with the badge gone this line is the row's only prose.</span>
+              </sc-if>
+            </div>
+          </sc-for>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-top: 26px; font-size: 14.5px; color: #6f6f6f;">
+            <span>© 2026 Ammar Alam. All rights reserved.</span>
+            <span style="color: #0077cc;">All topics</span>
+          </div>
+        </div>
+        <div style="font-size: 11px; line-height: 1.75; color: #57544e; max-width: 92ch;">Row is title, date, description — the <span style="color: #1a1a19;">.post-categories</span> span and the <span style="color: #1a1a19;">.post-tags</span> line both come out of PostList.astro. The date is new and takes the vacated right slot; PostList renders no date today. Five rows because the three private posts stay hidden. Copy is verbatim from your frontmatter, including the Django post's description — flagged in red because the badge used to carry that row and now the description is alone in it. <span style="color: #1a1a19;">All topics</span> in the footer is the only browse link on the site.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 11px; letter-spacing: 0.06em; color: #6f6b64;">02 · POST — BlogPost.astro, header and new end matter</div>
+        <div style="width: 800px; background: #ffffff; border: 1px solid #eaeaea; padding: 40px 44px 36px; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; color: #333333; line-height: 1.6;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 34px;">
+            <span style="font-size: 19px; color: #333333;">Ammar Alam</span>
+            <div style="display: flex; gap: 18px; font-size: 15px; color: #0077cc;"><span>Resume</span><span>Photography</span></div>
+          </div>
+          <h3 style="margin: 0 0 14px; font-size: 34px; font-weight: 400; line-height: 1.22; max-width: 26ch;">On religion, harems, and Alamut</h3>
+          <div style="display: flex; align-items: baseline; gap: 9px; font-size: 15px; color: #6f6f6f; border-bottom: 1px solid #eaeaea; padding-bottom: 22px;">
+            <span>August 1, 2022</span>
+            <span>·</span>
+            <span>12 min</span>
+          </div>
+          <div style="border: 1px dashed #dddddd; padding: 26px 0; text-align: center; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; letter-spacing: 0.06em; color: #6f6f6f; margin: 26px 0 30px;">ARTICLE BODY — UNCHANGED</div>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; border-top: 1px solid #eaeaea; padding-top: 20px; font-size: 16px;">
+            <span style="color: #6f6f6f;">Posted in:</span>
+            <sc-for list="{{ postedIn }}" as="t" hint-placeholder-count="1">
+              <span style="color: #0077cc;">{{ t.name }}</span>
+            </sc-for>
+          </div>
+          <div style="margin-top: 30px; border-top: 1px solid #eaeaea; padding-top: 20px;">
+            <div style="font-size: 14.5px; letter-spacing: 0.03em; color: #6f6f6f; padding-bottom: 2px;">More like this</div>
+            <sc-for list="{{ related }}" as="p" hint-placeholder-count="1">
+              <div style="display: grid; grid-template-columns: 1fr auto; gap: 3px 20px; align-items: baseline; padding: 13px 0 0;">
+                <span style="font-size: 19px; line-height: 1.35; color: #333333;">{{ p.title }}</span>
+                <span style="font-size: 14px; color: #6f6f6f; white-space: nowrap;">{{ p.short }}</span>
+                <span style="grid-column: 1 / -1; font-size: 15.5px; line-height: 1.5; color: #555555; max-width: 60ch;">{{ p.desc }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="font-size: 11px; line-height: 1.75; color: #57544e; max-width: 92ch;">Header keeps date and read time and loses the category link and the whole <span style="color: #1a1a19;">.blog-tags</span> block — the tag icon and <span style="color: #1a1a19;">#book, #review, #thoughts, #bartol, #alamut</span> line are deleted, not moved. Topics reappear once, after the body, as ordinary <span style="color: #1a1a19;">--accent-color</span> links: same treatment <span style="color: #1a1a19;">.post-category</span> has today, new label and position. The related post is Karamazov, and it has no tags at all — which is why candidates come from the shared topic, not from tag overlap.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 11px; letter-spacing: 0.06em; color: #6f6b64;">03 · /topics/books/ — pages/topics/[topic].astro</div>
+        <div style="width: 800px; background: #ffffff; border: 1px solid #eaeaea; padding: 40px 44px 36px; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; color: #333333; line-height: 1.6;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 34px;">
+            <span style="font-size: 19px; color: #333333;">Ammar Alam</span>
+            <div style="display: flex; gap: 18px; font-size: 15px; color: #0077cc;"><span>Resume</span><span>Photography</span></div>
+          </div>
+          <h3 style="margin: 0 0 8px; font-size: 34px; font-weight: 400; line-height: 1.2;">Books</h3>
+          <p style="margin: 0 0 20px; font-size: 17px; line-height: 1.6; color: #555555; max-width: 52ch;">Two posts. Mostly novels, occasionally the argument a novel is making.</p>
+          <div style="border-top: 1px solid #eaeaea;"></div>
+          <sc-for list="{{ books }}" as="p" hint-placeholder-count="2">
+            <div style="display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; align-items: baseline; border-bottom: 1px solid #eaeaea; padding: 20px 0 18px;">
+              <span style="font-size: 21px; line-height: 1.3; color: #333333;">{{ p.title }}</span>
+              <span style="font-size: 14px; color: #6f6f6f; white-space: nowrap;">{{ p.short }}</span>
+              <span style="grid-column: 1 / -1; font-size: 16px; line-height: 1.55; color: #555555; max-width: 62ch;">{{ p.desc }}</span>
+            </div>
+          </sc-for>
+          <div style="padding-top: 22px; font-size: 15.5px; color: #0077cc;">All posts</div>
+        </div>
+        <div style="font-size: 11px; line-height: 1.75; color: #57544e; max-width: 92ch;">Same row component as the home page. No row of sibling topics here — that would put browsing back one level down. The one-line description under the heading is hand-written per topic and is the only thing that makes this page feel authored rather than queried; it is also what a search visitor lands on. <span style="color: #1a1a19;">/topics/</span> itself is this layout listing the five.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 11px; letter-spacing: 0.06em; color: #6f6b64;">04 · MOBILE, 390px — NO NEW BEHAVIOUR</div>
+        <div style="width: 390px; background: #ffffff; border: 1px solid #eaeaea; padding: 24px 20px 26px; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; color: #333333; line-height: 1.6;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 20px;">
+            <span style="font-size: 17px;">Ammar Alam</span>
+            <div style="display: flex; gap: 14px; font-size: 14px; color: #0077cc;"><span>Resume</span><span>Photography</span></div>
+          </div>
+          <h3 style="margin: 0 0 6px; font-size: 27px; font-weight: 400; line-height: 1.2;">Hi, I'm Ammar</h3>
+          <p style="margin: 0 0 18px; font-size: 16px; line-height: 1.55; color: #555555;">Or rather, his digital twin.<br />Building the future of EdTech.</p>
+          <div style="border-top: 1px solid #eaeaea;"></div>
+          <sc-for list="{{ three }}" as="p" hint-placeholder-count="3">
+            <div style="display: flex; flex-direction: column; gap: 3px; border-bottom: 1px solid #eaeaea; padding: 16px 0 14px;">
+              <span style="font-size: 18.5px; line-height: 1.3;">{{ p.title }}</span>
+              <span style="font-size: 13.5px; color: #6f6f6f;">{{ p.short }}</span>
+              <span style="font-size: 15.5px; line-height: 1.5; color: #555555;">{{ p.desc }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size: 11px; line-height: 1.75; color: #57544e; max-width: 46ch;">No filter row, no panel, no rail, so there is no mobile-specific behaviour to build. The one thing to check is Posted in: it wraps to a second line on narrow screens and each topic link needs 44px of tap height there.</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 44px; border-top: 1px solid #ded9d0; padding-top: 20px;">
+
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        <h2 style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 24px; font-weight: 400;">The five topics</h2>
+        <p style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 15px; line-height: 1.6; color: #57544e;">Every one of your eight posts placed. Counts are public first, private in brackets.</p>
+        <div style="border-top: 1px solid #ded9d0;">
+          <sc-for list="{{ vocab }}" as="v" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: 1fr 54px; gap: 4px 12px; align-items: baseline; border-bottom: 1px solid #e4e0d8; padding: 11px 0 10px;">
+              <span style="font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 16.5px; color: #1a1a19;">{{ v.name }}</span>
+              <span style="font-size: 11.5px; text-align: right; color: #57544e;">{{ v.count }}</span>
+              <span style="grid-column: 1 / -1; font-size: 11px; line-height: 1.5; color: #6f6b64;">{{ v.slug }}</span>
+              <span style="grid-column: 1 / -1; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 15px; line-height: 1.55; color: #57544e;">{{ v.holds }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <sc-for list="{{ growth }}" as="t" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #e4e0d8; padding-top: 10px;">
+            <span style="font-size: 11.5px; letter-spacing: 0.02em; color: #1a1a19;">{{ t.q }}</span>
+            <span style="font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 15px; line-height: 1.6; color: #57544e;">{{ t.a }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        <h2 style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 24px; font-weight: 400;">Schema and build</h2>
+        <div style="background: #ebe7df; padding: 16px 18px; font-size: 12px; line-height: 1.85; color: #2e2c29;">
+          <div style="color: #6f6b64;">--- frontmatter</div>
+          <div>title: string</div>
+          <div>description: string</div>
+          <div>pubDate: YYYY-MM-DD</div>
+          <div>topics: Topic[]  <span style="color: #6f6b64;">// 1–2, validated</span></div>
+          <div>tags: string[]  <span style="color: #6f6b64;">// free, never rendered</span></div>
+          <div>private?: boolean</div>
+          <div style="color: #6f6b64; text-decoration: line-through;">categories: CategoryType[]</div>
+        </div>
+        <sc-for list="{{ spec }}" as="t" hint-placeholder-count="5">
+          <div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #e4e0d8; padding-top: 10px;">
+            <span style="font-size: 11.5px; letter-spacing: 0.02em; color: #1a1a19;">{{ t.q }}</span>
+            <span style="font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 15px; line-height: 1.6; color: #57544e;">{{ t.a }}</span>
+          </div>
+        </sc-for>
+        <div style="border-top: 1px solid #ded9d0; padding-top: 13px; font-size: 11.5px; line-height: 1.95; color: #2e2c29;">
+          <div style="letter-spacing: 0.06em; color: #6f6b64; padding-bottom: 3px;">TOUCHED FILES</div>
+          <div>utils/posts.ts <span style="color: #6f6b64;">Category → Topic, filterPostsByTopic</span></div>
+          <div>components/PostList.astro <span style="color: #6f6b64;">badges + tag line out, date in</span></div>
+          <div>components/Navigation.astro <span style="color: #6f6b64;">3 items out</span></div>
+          <div>layouts/BlogPost.astro <span style="color: #6f6b64;">.blog-tags out, end matter in</span></div>
+          <div>pages/topics/[topic].astro <span style="color: #6f6b64;">new, getStaticPaths</span></div>
+          <div>pages/topics/index.astro <span style="color: #6f6b64;">new</span></div>
+          <div>styles/components.css <span style="color: #6f6b64;">.post-date, .posted-in, .more-like-this</span></div>
+          <div style="color: #6f6b64;">delete pages/books, /technology, /life</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px; border-top: 1px solid #ded9d0; padding-top: 20px;">
+      <h2 style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 24px; font-weight: 400;">Deferred, and specified</h2>
+      <p style="margin: 0; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.7; color: #45423d; max-width: 72ch; text-wrap: pretty;">Browsing by topic from the home page is designed and switched off. Turn it on when one topic passes five posts, on that topic page first; put it under the intro when the home list stops being scannable, around twenty-five posts. It is one line of links in <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13.5px;">--accent-color</span>, shown here in its home-page state where no topic is active. On a topic page the current one drops to <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13.5px;">--primary-color</span> and loses its link:</p>
+      <div style="width: 800px; background: #ffffff; border: 1px solid #eaeaea; padding: 20px 44px; font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Times New Roman', Times, serif;">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; font-size: 16px;">
+          <sc-for list="{{ rest }}" as="t" hint-placeholder-count="4">
+            <span style="color: #0077cc;">{{ t.name }}<span style="font-size: 13px; color: #6f6f6f; padding-left: 5px;">{{ t.count }}</span></span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="font-size: 11px; line-height: 1.75; color: #57544e; max-width: 92ch;">Four links here, not five — a topic with no public posts never appears, so Photography joins the line the day its first post ships. Five fit one line at 800px and two lines at 390px. On mobile each link needs <span style="color: #1a1a19;">display: inline-block</span> and 13px of vertical padding to clear a 44px tap box. Past eight topics, replace the line with a single <span style="color: #1a1a19;">by topic</span> disclosure that opens the list — a row of links this long is the failure mode.</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 9px; border-top: 1px solid #ded9d0; padding-top: 20px; font-size: 11.5px; line-height: 1.95; color: #57544e;">
+      <div style="letter-spacing: 0.06em; color: #1a1a19;">CSS — NO NEW VARIABLES</div>
+      <div>Topic links, All topics and All posts use <span style="color: #1a1a19;">--accent-color</span>, exactly as <span style="color: #1a1a19;">.post-category</span> does today. Dates and Posted in: use <span style="color: #1a1a19;">--text-light</span>, descriptions <span style="color: #1a1a19;">--secondary-color</span>, rules <span style="color: #1a1a19;">--border-color</span>.</div>
+      <div>One fix worth making while you are in there: <span style="color: #1a1a19;">--text-light: #777</span> is 4.48:1 on white, just under AA. <span style="color: #1a1a19;">#6f6f6f</span> is 4.9:1 and visually identical. The dark value #8a8a8e already passes.</div>
+      <div>No cards, shadows, radii, new type sizes or new weights. <span style="color: #1a1a19;">--shadow</span> is not used anywhere in this design.</div>
+      <div>Frames above are inline-styled because of the medium; the build stays class-based in <span style="color: #1a1a19;">components.css</span> and <span style="color: #1a1a19;">blog.css</span>.</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const PUBLIC = [
+  { title: 'Learnings from using clean architecture in Django', short: 'Sep 2025', desc: 'Learnings from using clean architecture in Django', dupe: true },
+  { title: 'More than just The Brothers Karamazov', short: 'Mar 2023', desc: "A review of Fyodor Dostoevsky's masterpiece, The Brothers Karamazov" },
+  { title: 'Shini Bahar', short: 'Sep 2022', desc: 'Reflections on a beautiful song' },
+  { title: 'On religion, harems, and Alamut', short: 'Aug 2022', desc: "A review of Vladimir Bartol's Alamut, a novel that inspired the Assassin's Creed franchise" },
+  { title: 'Exams should not be timed', short: 'Sep 2016', desc: 'A critique of timed examinations and the case for mastery-based learning' }
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      posts: PUBLIC,
+      three: PUBLIC.slice(0, 3),
+      books: [PUBLIC[1], PUBLIC[3]],
+      related: [PUBLIC[1]],
+      postedIn: [{ name: 'Books' }],
+      rest: [
+        { name: 'Books', count: 2 }, { name: 'Software Engineering', count: 1 },
+        { name: 'Education', count: 1 }, { name: 'Music', count: 1 }
+      ],
+
+      vocab: [
+        { name: 'Books', count: '2', slug: '/topics/books/', holds: 'Alamut and Karamazov. Absorbs the old books category and the tags book, review, bartol, alamut.' },
+        { name: 'Software Engineering', count: '1 (+1)', slug: '/topics/software-engineering/', holds: 'Clean architecture in Django, plus the private statistics post. Absorbs python, django, clean-architecture, architecture, backend.' },
+        { name: 'Education', count: '1', slug: '/topics/education/', holds: 'Exams should not be timed, which sits in life today. Absorbs education and thoughts. Your EdTech writing lands here.' },
+        { name: 'Music', count: '1', slug: '/topics/music/', holds: 'Shini Bahar, also filed under life today. Untagged, so it needs an explicit topic — this is why topics cannot be derived from tags.' },
+        { name: 'Photography', count: '0 (+2)', slug: '/topics/photography/', holds: 'Only the two private posts — the Debevec CRF piece and Vision in my life. Ship the page when one of them goes public; until then the topic exists in the enum and renders nowhere.' }
+      ],
+
+      growth: [
+        { q: 'Why these five', a: 'They place all eight posts with nothing left over and nothing invented. Four are live today; Photography is one publish away.' },
+        { q: 'A sixth arrives at two posts', a: 'Something that does not fit goes in the nearest existing topic. Write the second of its kind and the topic is real: add the enum value, move both posts, the page generates itself. Religion & Faith is next in line — Alamut sits in Books until it has company.' },
+        { q: 'Three of your eight posts carry no tags at all', a: 'Karamazov, Shini Bahar and Vision in my life have none. Any scheme that derives topics from tags leaves them homeless, which is the strongest argument for keeping an explicit validated field.' },
+        { q: 'Merging beats deleting', a: 'A topic that stops growing just stays small. If two need to become one, ship a redirect rather than breaking a URL.' }
+      ],
+
+      spec: [
+        { q: 'Rename the enum, keep the machinery', a: 'Category becomes Topic with five values; filterPostsByCategory becomes filterPostsByTopic and keeps its array-or-scalar handling. formatDate, parseDate, filterPublicPosts and sortPostsByDate are untouched. import.meta.glob still has to be called in the .astro file.' },
+        { q: 'Tags stop being a public field', a: 'Keep the array exactly as it is and stop rendering it in both PostList.astro and BlogPost.astro. Nothing in the vocabulary needs cleaning first — article, series, multi-part, crf, hdri and bartol are all fine once nobody sees them.' },
+        { q: 'More like this, precisely', a: 'Candidates are other public posts sharing at least one topic. Rank by count of shared tags, break ties by date descending, cap at three, exclude self. Tags rank within a topic rather than choosing the candidates, so untagged posts still get neighbours and the two-part CRF series still pairs on crf and multi-part.' },
+        { q: 'Topic names are Title Case, always', a: 'Anything Title Case on screen is a topic you can click; lowercase tags never appear anywhere. That one rule keeps the two vocabularies legible without explaining them. Slugs are lowercase and hyphenated.' },
+        { q: 'URLs and redirects', a: '/topics/<slug>/ from getStaticPaths, trailing slash to match astro.config.mjs. No query params, no hash, no client-side filtering. Redirect /books/, /technology/ and /life/ to /topics/ so old links and search results survive.' },
+        { q: 'Watch the Photography collision', a: 'A Photography topic page and the Photography gallery in the nav are different things at similar URLs. /topics/photography/ versus /photography/ is survivable, but rename the topic to Computational Photography if it reads wrong once the CRF post is public.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
