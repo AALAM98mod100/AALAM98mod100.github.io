@@ -1,7 +1,9 @@
 ---
+import type { MarkdownInstance } from 'astro';
 import BaseLayout from './BaseLayout.astro';
-import type { TopicType } from '../utils/posts';
-import { getPostTopics } from '../utils/posts';
+import PostList from '../components/PostList.astro';
+import type { Frontmatter, TopicType } from '../utils/posts';
+import { getPostTopics, getRelatedPosts, TOPIC_NAMES } from '../utils/posts';
 import { formatDate, parseDate } from '../utils/date';
 
 interface Props {
@@ -53,6 +55,12 @@ const pubDateISO = getISOString(pubDateRaw);
 const updatedDateISO = updatedDateRaw ? getISOString(updatedDateRaw) : undefined;
 
 const topicList = getPostTopics({ topics });
+
+const allPosts = Object.values(
+  import.meta.glob<MarkdownInstance<Frontmatter>>('../pages/posts/*.md', { eager: true })
+);
+
+const relatedPosts = getRelatedPosts(allPosts, url ?? '', topicList, tags ?? []);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -97,5 +105,21 @@ const topicList = getPostTopics({ topics });
     <div class="blog-content">
       <slot />
     </div>
+
+    {topicList.length > 0 && (
+      <div class="posted-in">
+        <span class="posted-in-label">Posted in:</span>
+        {topicList.map(topic => (
+          <a href={`/topics/${topic}/`}>{TOPIC_NAMES[topic]}</a>
+        ))}
+      </div>
+    )}
+
+    {relatedPosts.length > 0 && (
+      <section class="more-like-this">
+        <h2 class="more-like-this-heading">More like this</h2>
+        <PostList posts={relatedPosts} variant="compact" />
+      </section>
+    )}
   </article>
 </BaseLayout>
