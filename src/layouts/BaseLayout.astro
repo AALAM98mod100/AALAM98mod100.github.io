@@ -18,6 +18,9 @@ const { title, description } = Astro.props;
   </main>
   
   <footer>
-    <p>&copy; {new Date().getFullYear()} Ammar Alam. All rights reserved.</p>
+    <div class="footer-inner">
+      <p>&copy; {new Date().getFullYear()} Ammar Alam. All rights reserved.</p>
+      <a class="footer-link" href="/topics/">All topics</a>
+    </div>
   </footer>
 </Layout> 

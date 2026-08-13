@@ -109,10 +109,27 @@ main {
 
 /* Footer */
 footer {
-  text-align: center;
   padding: 1rem;
   background-color: var(--light-background);
   border-top: 1px solid var(--border-color);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+.footer-link {
+  color: var(--accent-color);
 }
 
 /* Responsive Adjustments */
