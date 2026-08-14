@@ -49,11 +49,11 @@ const relatedPosts = getRelatedPosts(allPosts, url, topicList, tags ?? []);
 const linkableTopics = new Set(getTopicsWithPosts(allPosts).map(entry => entry.slug));
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} noindex={isPrivate}>
   <article class="blog-post">
     {isPrivate && (
       <div class="private-notice">
-        <p>⚠️ This is a private post and is not visible to the public.</p>
+        <p>⚠️ Draft — please do not share this link.</p>
       </div>
     )}
 
